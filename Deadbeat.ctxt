@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=Deadbeat
+comment0.text=\r\n\ Enemy\ type\ the\ only\ difference\ is\ texture\r\n
+comment1.params=
+comment1.target=Deadbeat()
+comment2.params=
+comment2.target=void\ act()
+numComments=3

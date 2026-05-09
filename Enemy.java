@@ -1,0 +1,66 @@
+import greenfoot.*;
+
+public class Enemy extends Actor
+{
+    GreenfootImage[] frames = new GreenfootImage[3];
+    int frameIndex = 0;
+    int animDelay = 0;
+    int ANIM_SPEED = 10;
+    int WALK_SPEED = 2;
+    boolean facingRight = false;
+
+    public void act()
+    {
+        moveTowardsPlayer();
+        animate();
+        hitPlayer();
+    }
+
+    public void moveTowardsPlayer()
+    {
+        Player player = (Player) getWorld().getObjects(Player.class).get(0);
+        
+        int distanceX = getX() - player.getX();
+        int distanceY = getY() - player.getY();
+        if (Math.abs(distanceX) > Math.abs(distanceY)) {
+            if (distanceX > 0) {
+                setLocation(getX() - 1, getY());
+                facingRight = false;
+            }
+            else if (distanceX < 0) {
+                setLocation(getX() + 1, getY());
+                facingRight = true;
+            }
+        }
+        else {
+            if (distanceY > 0) setLocation(getX(), getY() - 1);
+            else if (distanceY < 0) setLocation(getX(), getY() + 1);
+        } 
+        
+    }
+
+    public void animate()
+    {
+        animDelay--;
+        if (animDelay <= 0) {
+            animDelay = ANIM_SPEED;
+            frameIndex = (frameIndex + 1) % frames.length;
+            GreenfootImage img = new GreenfootImage(frames[frameIndex]);
+            if (!facingRight && frames[frameIndex] != null) img.mirrorHorizontally();
+            setImage(img);
+        }
+    }
+
+    public void hitPlayer() {
+        Player player = (Player) getOneIntersectingObject(Player.class);
+        if (player != null) player.getDamaged();
+    }
+    
+    public void death()
+    {
+        getWorld().addObject(new EXP(), getX(), getY());
+        DefeatedCounter counter = (DefeatedCounter) getWorld().getObjects(DefeatedCounter.class).get(0);
+        counter.increaseAmount(1);
+        getWorld().removeObject(this);
+    }
+}

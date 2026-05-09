@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Game
+comment0.text=\r\n\ Game\ World\r\n\ Does\ not\ used\ as\ a\ stand-alone\ world,\ but\ rather\ as\r\n\ a\ common\ functions\ and\ setting\ for\ other\ stage\ worlds\r\n
+comment1.params=
+comment1.target=Game()
+comment2.params=enemy
+comment2.target=void\ spawn(Enemy)
+comment2.text=\r\n\ @param\ enemy\ -\ put\ a\ type\ of\ enemy\ to\ spawn\ it\r\n\ @param\ x,y\ -\ randomize\ location\ to\ spawn\ enemy\ within\ borders\r\n
+comment3.params=
+comment3.target=void\ endgame()
+numComments=4

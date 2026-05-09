@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=Menu
+comment1.params=
+comment1.target=Menu()
+comment2.params=
+comment2.target=void\ showMainMenu()
+comment3.params=
+comment3.target=void\ showCharacterSelection()
+comment4.params=
+comment4.target=void\ showStageSelection()
+comment5.params=
+comment5.target=void\ switchToGameStage()
+comment6.params=
+comment6.target=boolean\ nextPressed()
+comment6.text=\r\n\ Pressing\ button\ with\ cooldown\r\n
+comment7.params=
+comment7.target=void\ act()
+numComments=8

@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=HPbar
+comment0.text=\r\n\ Creates\ HP\ bar\ and\ updates\ it\ when\ Player\ is\ getting/losing\ HP\r\n
+comment1.params=
+comment1.target=HPbar()
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ updateBar()
+numComments=4

@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Intro
+comment0.text=\r\n\ Intro\ world\r\n\ Game\ starts\ with\ intro\r\n\ 8\ Frames\ that\ changes\ after\ FRAME_DURATION\ amount\ of\ frames\r\n\ Can\ be\ skipped\ by\ clicking\ spacebar\r\n\ At\ the\ end\ changes\ world\ to\ Menu\r\n
+comment1.params=
+comment1.target=Intro()
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ end()
+numComments=4

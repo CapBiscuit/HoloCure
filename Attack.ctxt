@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Attack
+comment1.params=charName\ rotation
+comment1.target=Attack(java.lang.String,\ int)
+comment2.params=
+comment2.target=void\ act()
+numComments=3

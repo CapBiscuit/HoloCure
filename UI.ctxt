@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=UI
+comment0.text=\r\n\ creates\ an\ image\ of\ UI;\r\n
+comment1.params=partImg
+comment1.target=UI(greenfoot.GreenfootImage)
+numComments=2

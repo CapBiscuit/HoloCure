@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=TimeCountdown
+comment1.params=startSeconds
+comment1.target=TimeCountdown(int)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ updateImage()
+numComments=4

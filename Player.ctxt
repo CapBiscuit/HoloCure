@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=Player
+comment1.params=charName
+comment1.target=Player(java.lang.String)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ shoot()
+comment3.text=\r\n\ Amelia\ Exclusive\ Attack\ \ -\ \ a\ \ G\ u\ n\ \ \ \ //\ Never\ give\ your\ VTuber\ a\ GUN\r\n\ \r\n\ Creates\ a\ Burst\ of\ projectiles.\ \r\n\ It\ shoots\ every\ 10\ frames,\ but\ can\ not\ shoot\ during\ BurstCooldown.\r\n\ The\ lower\ BurstCooldown\ the\ more\ bullets\ are\ shot\ //\ Default\ is\ 3\ bullets\r\n\ With\ BurstCooldown\ \=\ 0\ shoots\ all\ the\ time\r\n\ \r\n\ BURST\ (70\ frames)\ Visualization\:\ |-------Burst\ window\ (BurstCooldown)-------|------Bursting------|\r\n\ Default\ Visualization\:\ \ \ \ \ \ \ \ \ \ \ |----------------------------------------|*|---------*---------*|\ \r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 50\ frames\ \ \ \ \ \ \ \ \ \ \ \ \ ^\ \ \ \ \ \ \ \ \ 20\ frames\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "*"\ bullet\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "-"\ 1\ frame\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Bullet\ shot\ \r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ at\ 50th\ frame\r\n
+comment4.params=
+comment4.target=void\ attack()
+comment4.text=\r\n\ Creates\ Attack\ that\ deals\ damage\ to\ Enemies.\r\n\ A\ little\ buggy,\ but\ whatever...\r\n
+comment5.params=
+comment5.target=void\ movements()
+comment6.params=
+comment6.target=void\ death()
+comment7.params=
+comment7.target=void\ getDamaged()
+comment8.params=
+comment8.target=void\ update()
+comment8.text=\r\n\ Player's\ animation\r\n
+comment9.params=amount
+comment9.target=void\ increaseExp(int)
+comment9.text=\r\n\ Increases\ Exp\ by\ 1.\r\n\ When\ reached\ EXP_CAP\:\r\n\ Increases\ ATK\ by\ 1.\ //\ Not\ supported\ as\ of\ now,\ as\ Enemies\ dies\ immediatly\r\n\ Heals\ Player\ by\ 10.\r\n\ Increases\ Time\ left\ by\ 50\ seconds.\ //\ Later\ remove\ as\ it's\ pointless\r\n\ Increases\ EXP_CAP\ by\ 5.\r\n
+numComments=10

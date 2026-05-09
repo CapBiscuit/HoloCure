@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=DefeatedCounter
+comment1.params=
+comment1.target=DefeatedCounter()
+comment2.params=amount
+comment2.target=void\ increaseAmount(int)
+comment3.params=
+comment3.target=void\ updateImage()
+numComments=4

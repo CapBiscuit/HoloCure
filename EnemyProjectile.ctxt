@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=EnemyProjectile
+comment1.params=rotation
+comment1.target=EnemyProjectile(int)
+comment2.params=
+comment2.target=void\ act()
+numComments=3
