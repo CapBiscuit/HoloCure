@@ -4,5 +4,5 @@ comment0.text=\r\n\ Stage\ 1\r\n
 comment1.params=charName
 comment1.target=GrassyPlains(java.lang.String)
 comment2.params=
-comment2.target=void\ World_logic()
+comment2.target=void\ act()
 numComments=3

@@ -1,6 +1,6 @@
 import greenfoot.*;
 
-public class EnemyProjectile extends World_objects
+public class EnemyProjectile extends Actor
 {
     int speed = 5;
     int rotation;  // degrees, easier with setRotation()

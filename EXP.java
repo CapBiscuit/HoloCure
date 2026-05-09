@@ -1,6 +1,11 @@
 import greenfoot.*;
 
-public class EXP extends World_objects
+/**
+ * Spawns after killing any enemy
+ * Increases Player's EXP after they touch it
+ */
+
+public class EXP extends Actor
 {
     public EXP()
     {

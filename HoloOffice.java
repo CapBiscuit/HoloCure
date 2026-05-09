@@ -11,7 +11,7 @@ public class HoloOffice extends Game
         player = new Player(charName);
         addObject(player, getWidth()/2, getHeight()/2);
         
-        bg = new GreenfootImage("stages/holooffice/background.png");//o_0
+        setBackground("stages/holooffice/background.png");
         
         addObject(new UI(new GreenfootImage("characters/" + charName + "/portrait.png")),50,75);
         
@@ -22,8 +22,9 @@ public class HoloOffice extends Game
         
     }
     
-    public void World_logic()//o_0
-    {
+    public void act() {
+        music.playLoop();
+        spawnTimer--;
         if (spawnTimer <= 0) {
             spawn(new Chumbud());
             spawnTimer = SPAWN_DELAY;

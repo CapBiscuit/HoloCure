@@ -15,8 +15,6 @@ public class Game extends World
     
     int TIME = 500; // in seconds
     
-    GreenfootImage bg; // ФОООООООООООООООООООН
-    
     public Game()
     {    
         super(1280, 720, 1); 
@@ -31,77 +29,16 @@ public class Game extends World
 
     public void spawn(Enemy enemy)
     {
-        int x = (Greenfoot.getRandomNumber(2) == 0)
-            ? (int)(player.worldX + Greenfoot.getRandomNumber(200)+100)
-            : (int)(player.worldX - Greenfoot.getRandomNumber(200)-100);
-    
-        int y = (Greenfoot.getRandomNumber(2) == 0)
-            ? (int)(player.worldY + Greenfoot.getRandomNumber(200)+100)
-            : (int)(player.worldY - Greenfoot.getRandomNumber(200)-100);
-    
-        enemy.worldX = x;
-        enemy.worldY = y;
-        addObject(enemy, 0, 0);
+        int x = (Greenfoot.getRandomNumber(2) == 0) ? (player.getX() + Greenfoot.getRandomNumber(200)+100) : (player.getX() - Greenfoot.getRandomNumber(200) - 100);
+        int y = (Greenfoot.getRandomNumber(2) == 0) ? (player.getY() + Greenfoot.getRandomNumber(200)+100) : (player.getY() - Greenfoot.getRandomNumber(200) - 100);
+        x = Math.min(getWidth()-50, Math.max(50, x));
+        y = Math.min(getHeight()-50, Math.max(50, y));
+        addObject(enemy, x, y);
     }
     
     public void endgame() {
         music.stop();
         Greenfoot.setWorld(new GameOver());
-    }
-    
-    public void World_logic(){}
-    
-    public void act() //o_0
-    {
-        draw_background();
-        update_camera();
-        music.playLoop();
-        spawnTimer--;
-        World_logic();
-    }
-    
-        private boolean isVisible(int x, int y)
-    {
-        return x >= -64 && x <= getWidth() + 64 &&
-               y >= -64 && y <= getHeight() + 64;
-    }
-    
-        public void update_camera()//o_0
-    {
-        for (World_objects wObj : getObjects(World_objects.class))
-        {
-            int screenX = (int)(wObj.worldX - player.worldX + getWidth()/2);
-            int screenY = (int)(wObj.worldY - player.worldY + getHeight()/2);
-            wObj.setLocation(screenX, screenY);
-            if (isVisible(screenX, screenY)) { wObj.setLocation(screenX, screenY); }
-        }
-        player.setLocation(getWidth()/2, getHeight()/2);
-    }
-    
-    public void draw_background() //o_0
-    {
-        GreenfootImage canvas = new GreenfootImage(getWidth(), getHeight());
-    
-        int camX = (int)player.worldX;
-        int camY = (int)player.worldY;
-    
-        int tileW = bg.getWidth();
-        int tileH = bg.getHeight();
-    
-        int offsetX = camX % tileW;
-        int offsetY = camY % tileH;
-    
-        if (offsetX < 0) offsetX += tileW;
-        if (offsetY < 0) offsetY += tileH;
-    
-        for (int x = -tileW; x < getWidth() + tileW; x += tileW)
-        {
-            for (int y = -tileH; y < getHeight() + tileH; y += tileH)
-            {
-                canvas.drawImage(bg, x - offsetX, y - offsetY);
-            }
-        }
-        setBackground(canvas);
     }
     
 }
