@@ -2,6 +2,10 @@ import greenfoot.*;
 
 public class Player extends Actor
 {
+    // data о_0 // было бы неплохо вынести всю игровую статистику отдельно 
+    public double worldX;
+    public double worldY;
+    
     // Frames
     GreenfootImage[] standSets = new GreenfootImage[3];
     GreenfootImage[] moveSets = new GreenfootImage[6];
@@ -135,7 +139,9 @@ public class Player extends Actor
             STATUS = "stand";
         }
 
-        setLocation(getX() + xSpeed, getY() + ySpeed);
+        //setLocation(getX() + xSpeed, getY() + ySpeed); о_0 забудьте о setLocation это миф
+        worldX += xSpeed;
+        worldY += ySpeed;
     }
 
     public void death()

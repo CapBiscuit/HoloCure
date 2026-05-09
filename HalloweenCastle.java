@@ -11,7 +11,7 @@ public class HalloweenCastle extends Game
         player = new Player(charName);
         addObject(player, getWidth()/2, getHeight()/2);
         
-        setBackground("stages/halloweencastle/background.png");
+        bg = new GreenfootImage("stages/halloweencastle/background.png"); //o_0
         
         addObject(new UI(new GreenfootImage("characters/" + charName + "/portrait.png")),50,75);
         
@@ -21,10 +21,8 @@ public class HalloweenCastle extends Game
         music = new GreenfootSound("HoloCure OST - Halloween Castle (Stage 3).mp3");
     }
     
-    public void act() {
-        music.playLoop();
-        spawnTimer--;
-        if (spawnTimer <= 0) {
+    public void World_logic(){ //o_0
+        if (spawnTimer <= 0){
             spawn(new Takodachi());
             spawnTimer = SPAWN_DELAY;
         }
