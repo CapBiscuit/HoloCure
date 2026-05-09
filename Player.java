@@ -195,7 +195,7 @@ public class Player extends Actor
         Exp += amount;
         if (Exp == EXP_CAP) {
             ATK++;
-            HP += 10;
+            if (HP != 100) HP += 10;
             TimeCountdown time = (TimeCountdown) getWorld().getObjects(TimeCountdown.class).get(0);
             time.timeInSeconds += 50;
             Exp = 0;
