@@ -1,8 +1,4 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
-/**
- * TODO: Must work with class Prop
- */
+import greenfoot.*; 
 public class Structure extends Prop
 {
 

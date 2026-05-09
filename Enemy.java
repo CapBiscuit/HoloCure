@@ -1,6 +1,6 @@
 import greenfoot.*;
 
-public class Enemy extends Actor
+public class Enemy extends World_objects
 {
     GreenfootImage[] frames = new GreenfootImage[3];
     int frameIndex = 0;
@@ -15,28 +15,29 @@ public class Enemy extends Actor
         animate();
         hitPlayer();
     }
-
-    public void moveTowardsPlayer()
+    
+    public void moveTowardsPlayer() //o_0
     {
-        Player player = (Player) getWorld().getObjects(Player.class).get(0);
-        
-        int distanceX = getX() - player.getX();
-        int distanceY = getY() - player.getY();
-        if (Math.abs(distanceX) > Math.abs(distanceY)) {
+        Player player = (Player)getWorld().getObjects(Player.class).get(0);
+    
+        double distanceX = worldX - player.worldX;
+        double distanceY = worldY - player.worldY;
+        if (Math.abs(distanceX) > Math.abs(distanceY))
+        {
             if (distanceX > 0) {
-                setLocation(getX() - 1, getY());
+                worldX -= 1;
                 facingRight = false;
             }
             else if (distanceX < 0) {
-                setLocation(getX() + 1, getY());
+                worldX += 1;
                 facingRight = true;
             }
         }
-        else {
-            if (distanceY > 0) setLocation(getX(), getY() - 1);
-            else if (distanceY < 0) setLocation(getX(), getY() + 1);
-        } 
-        
+        else
+        {
+            if (distanceY > 0) worldY -= 1;
+            else if (distanceY < 0) worldY += 1;
+        }
     }
 
     public void animate()
@@ -58,7 +59,12 @@ public class Enemy extends Actor
     
     public void death()
     {
-        getWorld().addObject(new EXP(), getX(), getY());
+        //getWorld().addObject(new EXP(), getX(), getY());
+        EXP exp = new EXP();
+        exp.worldX = worldX;
+        exp.worldY = worldY;
+        getWorld().addObject(exp, 0, 0);
+        
         DefeatedCounter counter = (DefeatedCounter) getWorld().getObjects(DefeatedCounter.class).get(0);
         counter.increaseAmount(1);
         getWorld().removeObject(this);
