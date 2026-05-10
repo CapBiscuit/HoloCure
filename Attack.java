@@ -47,7 +47,7 @@ public class Attack extends Actor
                 break;
             case "cecilia":
                 frames = new GreenfootImage[6];
-                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/cecilia/attack.png"), 6,1,0,6,1);
+                frames = SpriteSheetHandler.splitSheetVertical(new GreenfootImage("characters/cecilia/attack.png"), 1,6,0,6,1);
                 break;
         }
         
