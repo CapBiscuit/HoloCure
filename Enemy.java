@@ -3,6 +3,8 @@ import greenfoot.*;
 public class Enemy extends World_objects
 {
     GreenfootImage[] frames = new GreenfootImage[3];
+    GreenfootImage limpid = new GreenfootImage("limpid.png");//o_0
+    
     int frameIndex = 0;
     int animDelay = 0;
     int ANIM_SPEED = 10;
@@ -11,6 +13,7 @@ public class Enemy extends World_objects
 
     public void act()
     {
+        
         moveTowardsPlayer();
         animate();
         hitPlayer();
@@ -42,6 +45,8 @@ public class Enemy extends World_objects
 
     public void animate()
     {
+        if (getX() < 5 || getX() > 1275 || getY() < 5 || getY() > 715) //o_0// было бы непло считать эти граници относительно спрайтов мобов
+        { setImage(limpid); return; } 
         animDelay--;
         if (animDelay <= 0) {
             animDelay = ANIM_SPEED;
