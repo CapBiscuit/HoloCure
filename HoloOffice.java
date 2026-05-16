@@ -12,6 +12,7 @@ public class HoloOffice extends Game
         addObject(player, getWidth()/2, getHeight()/2);
         
         bg = new GreenfootImage("stages/holooffice/background.png");//o_0
+        bg.scale(bg.getWidth() * 3,bg.getHeight() * 3);
         
         addObject(new UI(new GreenfootImage("characters/" + charName + "/portrait.png")),50,75);
         

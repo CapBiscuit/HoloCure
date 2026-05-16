@@ -41,6 +41,13 @@ public class Enemy extends World_objects
             if (distanceY > 0) worldY -= 1;
             else if (distanceY < 0) worldY += 1;
         }
+        
+        
+        double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+        if (distance > 2500){
+                worldX = 2 * player.worldX - worldX;
+                worldY = 2 * player.worldY - worldY;
+                return;}
     }
 
     public void animate()

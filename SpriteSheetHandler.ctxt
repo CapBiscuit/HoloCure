@@ -2,8 +2,6 @@
 comment0.target=SpriteSheetHandler
 comment1.params=sheet\ totalColums\ totalRows\ currentRow\ neededFrames\ RESIZE
 comment1.target=greenfoot.GreenfootImage[]\ splitSheetHorizontal(greenfoot.GreenfootImage,\ int,\ int,\ int,\ int,\ int)
-comment1.text=\r\n\ Cuts\ frames\ from\ spritesheet\ horizontally\ to\ an\ array\ of\ images\r\n\ @param\ sheet\ Image\ of\ a\ spritesheet\r\n\ @param\ totalColums\ total\ amount\ of\ colums\ in\ the\ spritesheet\r\n\ @param\ totalRows\ \ \ total\ amount\ of\ rows\ \ \ in\ the\ spritesheet\r\n\ @param\ currentRow\ row\ from\ which\ to\ start\ cutting\ (starts\ with\ 0)\r\n\ @param\ neededFrames\ amount\ of\ frames\ needed\ in\ an\ array\r\n\ @param\ RESIZE\ resizes\ all\ images\ by\ multiplying\ by\ this\ amount\r\n\ @return\ an\ array\ of\ images\r\n
 comment2.params=sheet\ totalColums\ totalRows\ currentColum\ neededFrames\ RESIZE
 comment2.target=greenfoot.GreenfootImage[]\ splitSheetVertical(greenfoot.GreenfootImage,\ int,\ int,\ int,\ int,\ int)
-comment2.text=\r\n\ Cuts\ frames\ from\ spritesheet\ vertically\ to\ an\ array\ of\ images\r\n\ @param\ sheet\ Image\ of\ a\ spritesheet\r\n\ @param\ totalColums\ total\ amount\ of\ colums\ in\ the\ spritesheet\r\n\ @param\ totalRows\ \ \ total\ amount\ of\ rows\ \ \ in\ the\ spritesheet\r\n\ @param\ currentColum\ colum\ from\ which\ to\ start\ cutting\ (starts\ with\ 0)\r\n\ @param\ neededFrames\ amount\ of\ frames\ needed\ in\ an\ array\r\n\ @param\ RESIZE\ resizes\ all\ images\ by\ multiplying\ by\ this\ amount\r\n\ @return\ an\ array\ of\ images\r\n
 numComments=3
