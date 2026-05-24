@@ -15,8 +15,6 @@ public class Deadbeat extends Enemy
     
     public void act()
     {
-        moveTowardsPlayer();
-        animate();
-        hitPlayer();
+        super.act();
     }
 }

@@ -10,6 +10,8 @@ public class Enemy extends World_objects
     int ANIM_SPEED = 10;
     int WALK_SPEED = 2;
     boolean facingRight = false;
+    int hp = 2;
+    Attack last_hit_attack = null;
 
     public void act()
     {
@@ -17,6 +19,9 @@ public class Enemy extends World_objects
         moveTowardsPlayer();
         animate();
         hitPlayer();
+        if (hp <= 0) {
+            death();
+        }
     }
     
     public void moveTowardsPlayer() //o_0
@@ -68,6 +73,12 @@ public class Enemy extends World_objects
         Player player = (Player) getOneIntersectingObject(Player.class);
         if (player != null) player.getDamaged();
     }
+    
+    
+    public void hit() {
+        hp--;
+    }
+    
     
     public void death()
     {

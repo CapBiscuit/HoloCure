@@ -22,6 +22,11 @@ public class Game extends World
         super(1280, 720, 1); 
         addObject(new TimeCountdown(TIME), getWidth()/2, 50);
         addObject(new DefeatedCounter(), getWidth()/2 + 425, 50);
+        
+        addObject(new EXP_empty(), 640, 14);
+        addObject(new EXP_full(), 640, 14);
+        addObject(new EXPbar(),640,14);
+        addObject(new HPbar(),300,50);
     }
 
     /**

@@ -29,6 +29,7 @@ public class Player extends Actor
     
     // Exp
     int Exp = 0;
+    int level = 1;
     int EXP_CAP = 5;
 
     // Movement
@@ -200,7 +201,7 @@ public class Player extends Actor
             TimeCountdown time = (TimeCountdown) getWorld().getObjects(TimeCountdown.class).get(0);
             time.timeInSeconds += 50;
             Exp = 0;
-            EXP_CAP +=5;
+            EXP_CAP = (int)(EXP_CAP * 1.2);
         }
     }
 }

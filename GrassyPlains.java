@@ -16,8 +16,6 @@ public class GrassyPlains extends Game
         
         addObject(new UI(new GreenfootImage("characters/" + charName + "/portrait.png")),50,75);
         
-        addObject(new EXPbar(),630,25);
-        addObject(new HPbar(),300,50);
         
         music = new GreenfootSound("HoloCure OST - Grassy Plains (Stage 1).mp3");
     }

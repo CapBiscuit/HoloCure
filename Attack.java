@@ -59,7 +59,10 @@ public class Attack extends Actor
     {
         
         Enemy enemy = (Enemy) getOneIntersectingObject(Enemy.class);
-        if (enemy != null) enemy.death();
+        if (enemy != null && enemy.last_hit_attack != this) {
+            enemy.hit();
+            enemy.last_hit_attack = this;
+        };
         
         animationDelay--;
         if (animationDelay <= 0) {
