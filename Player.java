@@ -149,8 +149,13 @@ public class Player extends Actor
         }
 
         //setLocation(getX() + xSpeed, getY() + ySpeed); о_0 забудьте о setLocation это миф
-        worldX += xSpeed / Math.sqrt(2);
-        worldY += ySpeed / Math.sqrt(2);
+        if (kostil == 2){
+            worldX += xSpeed / Math.sqrt(2);
+            worldY += ySpeed / Math.sqrt(2);
+        } else{
+            worldX += xSpeed;
+            worldY += ySpeed;
+        }
     }
 
     public void death()
