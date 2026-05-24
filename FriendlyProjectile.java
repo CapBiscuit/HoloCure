@@ -17,7 +17,9 @@ public class FriendlyProjectile extends World_objects
     
     public void act()
     {
-        move(speed);
+        double radians = Math.toRadians(rotation);
+        worldX += Math.cos(radians) * speed;
+        worldY += Math.sin(radians) * speed;
         Enemy enemy = (Enemy) getOneIntersectingObject(Enemy.class);
         if (isAtEdge()) getWorld().removeObject(this);
         if (enemy != null) {

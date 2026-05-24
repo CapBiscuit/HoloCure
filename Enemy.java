@@ -8,7 +8,7 @@ public class Enemy extends World_objects
     int frameIndex = 0;
     int animDelay = 0;
     int ANIM_SPEED = 10;
-    int WALK_SPEED = 2;
+    int WALK_SPEED = 1;
     boolean facingRight = false;
     int hp = 2;
     Attack last_hit_attack = null;
@@ -30,24 +30,15 @@ public class Enemy extends World_objects
     
         double distanceX = worldX - player.worldX;
         double distanceY = worldY - player.worldY;
-        if (Math.abs(distanceX) > Math.abs(distanceY))
-        {
-            if (distanceX > 0) {
-                worldX -= 1;
-                facingRight = false;
-            }
-            else if (distanceX < 0) {
-                worldX += 1;
-                facingRight = true;
-            }
+        double distance_vector = Math.sqrt(distanceX*distanceX+distanceY*distanceY);
+        if (distanceX > 0) {
+            facingRight = false;
         }
-        else
-        {
-            if (distanceY > 0) worldY -= 1;
-            else if (distanceY < 0) worldY += 1;
+        else {
+            facingRight = true;
         }
-        
-        
+        worldX -= distanceX / distance_vector * WALK_SPEED;
+        worldY -= distanceY / distance_vector * WALK_SPEED;
         double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
         if (distance > 2500){
                 worldX = 2 * player.worldX - worldX;

@@ -82,7 +82,9 @@ public class Player extends Actor
         
         if (BURST >= BurstCooldown && WeaponCooldown == 10) {
             FriendlyProjectile projectile = new FriendlyProjectile(angleDeg);
-            getWorld().addObject(projectile, getX(), getY());
+            projectile.worldX = worldX;
+            projectile.worldY = worldY;
+            getWorld().addObject(projectile, 0, 0);
         }
         if (WeaponCooldown == 10) WeaponCooldown = 0;
         if (BURST == 70) BURST = 0;
@@ -115,24 +117,29 @@ public class Player extends Actor
     {
         int xSpeed = 0;
         int ySpeed = 0;
+        int kostil = 0;
 
         if (Greenfoot.isKeyDown("up")|| Greenfoot.isKeyDown("w")) {
             ySpeed = -WALK_SPEED;
             STATUS = "walk";
+            kostil++;
         }
         if (Greenfoot.isKeyDown("left")|| Greenfoot.isKeyDown("a")) {
             xSpeed = -WALK_SPEED;
             facingRight = false;
             STATUS = "walk";
+            kostil++;
         }
         if (Greenfoot.isKeyDown("down")|| Greenfoot.isKeyDown("s")) {
             ySpeed = WALK_SPEED;
             STATUS = "walk";
+            kostil++;
         }
         if (Greenfoot.isKeyDown("right")|| Greenfoot.isKeyDown("d")) {
             xSpeed = WALK_SPEED;
             facingRight = true;
             STATUS = "walk";
+            kostil++;
         }
         if (!(Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w") ||
               Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a") ||
@@ -142,8 +149,8 @@ public class Player extends Actor
         }
 
         //setLocation(getX() + xSpeed, getY() + ySpeed); о_0 забудьте о setLocation это миф
-        worldX += xSpeed;
-        worldY += ySpeed;
+        worldX += xSpeed / Math.sqrt(2);
+        worldY += ySpeed / Math.sqrt(2);
     }
 
     public void death()

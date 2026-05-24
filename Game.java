@@ -78,7 +78,7 @@ public class Game extends World
             int screenX = (int)(wObj.worldX - player.worldX + getWidth()/2);
             int screenY = (int)(wObj.worldY - player.worldY + getHeight()/2);
             wObj.setLocation(screenX, screenY);
-            if (isVisible(screenX, screenY)) { wObj.setLocation(screenX, screenY); }
+            
         }
         player.setLocation(getWidth()/2, getHeight()/2);
     }
