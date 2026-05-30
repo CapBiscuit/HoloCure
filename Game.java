@@ -15,7 +15,7 @@ public class Game extends World
     
     int TIME = 500; // in seconds
     
-    GreenfootImage bg; // ФОООООООООООООООООООН
+    GreenfootImage bg;
     
     public Game()
     {    
@@ -27,6 +27,11 @@ public class Game extends World
         addObject(new EXP_full(), 640, 14);
         addObject(new EXPbar(),640,14);
         addObject(new HPbar(),300,50);
+        addObject(new Pointer(),getWidth()/2,getHeight()/2);
+        addObject(new Crosshair(),0,0);
+        setPaintOrder(TimeCountdown.class,DefeatedCounter.class,UI.class,EXPbar.class,EXP_full.class,EXP_empty.class,HPbar.class,
+                      Pointer.class, Crosshair.class, Enemy.class);
+
     }
 
     /**
@@ -56,7 +61,7 @@ public class Game extends World
     
     public void World_logic(){}
     
-    public void act() //o_0
+    public void act()
     {
         draw_background();
         update_camera();
@@ -65,25 +70,18 @@ public class Game extends World
         World_logic();
     }
     
-        private boolean isVisible(int x, int y)
-    {
-        return x >= -64 && x <= getWidth() + 64 &&
-               y >= -64 && y <= getHeight() + 64;
-    }
-    
-        public void update_camera()//o_0
+    public void update_camera()
     {
         for (World_objects wObj : getObjects(World_objects.class))
         {
             int screenX = (int)(wObj.worldX - player.worldX + getWidth()/2);
             int screenY = (int)(wObj.worldY - player.worldY + getHeight()/2);
             wObj.setLocation(screenX, screenY);
-            
         }
         player.setLocation(getWidth()/2, getHeight()/2);
     }
     
-    public void draw_background() //o_0
+    public void draw_background()
     {
         GreenfootImage canvas = new GreenfootImage(getWidth(), getHeight());
     
