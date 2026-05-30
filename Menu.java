@@ -4,11 +4,14 @@ public class Menu extends World
 {
     String menu = "main";
     String charName = "suisei";
-    int selectedCharacter = 0; // 0 - Suisei // 1 - Amelia // 2 - Gura // 3 - Ina // 4 - Kiara // 5 - Mori //
+    int selectedCharacter = 1;
     int selectedStage = 1;
-    int keyCooldown = 40;
+    boolean keyCooldown = false;
+    
+    GreenfootImage Background = new GreenfootImage("mainmenu/main_menu.png");
     GreenfootImage[] charBackgrounds = new GreenfootImage[8];
     GreenfootImage[] stageBackgrounds = new GreenfootImage[3];
+    
     GreenfootSound music = new GreenfootSound("HoloCure OST - Title.mp3");
     GreenfootSound filiana = new GreenfootSound("Snackers.mp3"); //Snackers
     GreenfootSound neuro = new GreenfootSound("Truck.mp3"); //Chinatown //Truck //Evil
@@ -26,26 +29,27 @@ public class Menu extends World
             stageBackgrounds[i] = new GreenfootImage("mainmenu/stage_picker_" + (i+1) + ".png");
             stageBackgrounds[i].scale(getWidth(), getHeight());
         }
+        Background.scale(getWidth(), getHeight());
         music.playLoop();
     }
 
+    public String getCharName() {return charName;}
+    
     public void showMainMenu()
     {
-        GreenfootImage Background = new GreenfootImage("mainmenu/main_menu.png");
-        Background.scale(getWidth(), getHeight());
         setBackground(Background);
         menu = "main";
     }
 
     public void showCharacterSelection()
     {
-        setBackground(charBackgrounds[selectedCharacter]);
+        setBackground(charBackgrounds[selectedCharacter-1]);
         menu = "char";
     }
     
     public void showStageSelection()
     {
-        setBackground(stageBackgrounds[selectedStage]);
+        setBackground(stageBackgrounds[selectedStage-1]);
         menu = "stage";
     }
 
@@ -74,24 +78,12 @@ public class Menu extends World
             case 3: Greenfoot.setWorld(new HalloweenCastle(charName)); break;
         }
     }
-    
-    
-    /**
-     * Pressing button with cooldown
-     */
-    public boolean nextPressed() {
-        String key = Greenfoot.getKey();
-        if (("space".equals(key) || "enter".equals(key)) && keyCooldown == 0) {
-            keyCooldown = 10;
-            return true;
-        }
-        if (keyCooldown > 0) keyCooldown--;
-        return false;
-    }
-    
+
     public void act()
     {
-        if (menu == "main") if (nextPressed()) showCharacterSelection();
+        if (menu == "main") {
+            if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter"))) {showCharacterSelection(); keyCooldown = true;}
+        }
         if (menu == "char") {
             MouseInfo mouse = Greenfoot.getMouseInfo();
             if (mouse != null && Greenfoot.mouseClicked(null)) {
@@ -103,32 +95,35 @@ public class Menu extends World
                 int yPos = 75;
                 for (int i = 0; i < 8; i++) {
                     int buttonX = xPos + i * buttonWidth;
-                    if (x >= buttonX && x <= buttonX + buttonWidth && y >= yPos && y <= yPos+buttonHeight) {
-                        selectedCharacter = i+1;
-                        setBackground(charBackgrounds[i]);
-                        
-                        if (selectedCharacter <= 5) music.playLoop(); else music.pause();
-                        if (selectedCharacter == 6) filiana.playLoop(); else filiana.pause();
-                        if (selectedCharacter == 7) neuro.playLoop(); else neuro.pause();
-                        if (selectedCharacter == 8) cecilia.playLoop(); else cecilia.pause();
-                        break;
-                    }
+                    if (x >= buttonX && x <= buttonX + buttonWidth && y >= yPos && y <= yPos+buttonHeight) selectedCharacter = i+1;
                 }
             }
-            if (nextPressed()) menu = "stage";
+            if (!keyCooldown && (Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left"))) {selectedCharacter--; keyCooldown = true;}
+            if (!keyCooldown && (Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right"))) {selectedCharacter++; keyCooldown = true;}
+            if (selectedCharacter == 0) selectedCharacter = 8; 
+            if (selectedCharacter == 9) selectedCharacter = 1; 
+            
+            setBackground(charBackgrounds[selectedCharacter-1]);
+            if (selectedCharacter <= 5) music.playLoop();   else music.pause();
+            if (selectedCharacter == 6) filiana.playLoop(); else filiana.pause();
+            if (selectedCharacter == 7) neuro.playLoop();   else neuro.pause();
+            if (selectedCharacter == 8) cecilia.playLoop(); else cecilia.pause();
+            
+            if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter"))) {showStageSelection(); keyCooldown = true;}
+            if (!keyCooldown && (Greenfoot.isKeyDown("shift") || Greenfoot.isKeyDown("escape"))) {showMainMenu(); keyCooldown = true;}
         }
         if (menu == "stage") {
-            String key = Greenfoot.getKey();
-            if ( "left".equals(key) || "a".equals(key)) selectedStage--;
-            if ("right".equals(key) || "d".equals(key)) selectedStage++;
+            if (!keyCooldown && (Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left"))) {selectedStage--; keyCooldown = true;}
+            if (!keyCooldown && (Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right"))) {selectedStage++; keyCooldown = true;}
             if (selectedStage == 0) selectedStage = 3; 
             if (selectedStage == 4) selectedStage = 1; 
             setBackground(stageBackgrounds[selectedStage-1]);
-            if (("space".equals(key) || "enter".equals(key)) && keyCooldown == 0) {
-                keyCooldown = 10;
-                switchToGameStage();
-            }
-            if (keyCooldown > 0) keyCooldown--;
+            if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter"))) {switchToGameStage(); keyCooldown = true;}
+            if (!keyCooldown && (Greenfoot.isKeyDown("shift") || Greenfoot.isKeyDown("escape"))) {showCharacterSelection(); keyCooldown = true;}
         }
+        if (keyCooldown && !(Greenfoot.isKeyDown("shift") || Greenfoot.isKeyDown("escape") ||
+                                 Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter") ||
+                                 Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left") || 
+                                 Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right"))) keyCooldown = false;
     }
 }
