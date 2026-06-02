@@ -67,15 +67,15 @@ public class Menu extends World
             case 4: charName = "kiara"; break;
             case 5: charName = "mori"; break;
             case 6: charName = "filian"; break;
-            case 7: charName = "neuro"; break;
+            case 7: charName = "tutel"; break;
             case 8: charName = "cecilia"; break;
         }
         
         
         switch (selectedStage) { 
-            case 1: Greenfoot.setWorld(new GrassyPlains(charName)); break;
-            case 2: Greenfoot.setWorld(new HoloOffice(charName)); break;
-            case 3: Greenfoot.setWorld(new HalloweenCastle(charName)); break;
+            case 1: Greenfoot.setWorld(new GrassyPlains(charName, selectedCharacter)); break;
+            case 2: Greenfoot.setWorld(new HoloOffice(charName, selectedCharacter)); break;
+            case 3: Greenfoot.setWorld(new HalloweenCastle(charName, selectedCharacter)); break;
         }
     }
 

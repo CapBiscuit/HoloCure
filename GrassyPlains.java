@@ -6,9 +6,9 @@ import greenfoot.*;
 
 public class GrassyPlains extends Game
 {
-    public GrassyPlains(String charName)
+    public GrassyPlains(String charName, int character)
     {
-        player = new Player(charName);
+        player = new Player(charName, character);
         addObject(player, getWidth()/2, getHeight()/2);
         
         bg = new GreenfootImage("stages/grassyplains/background.png");//o_0

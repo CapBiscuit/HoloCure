@@ -6,9 +6,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 public class HalloweenCastle extends Game
 {
-    public HalloweenCastle(String charName)
+    public HalloweenCastle(String charName, int character)
     {
-        player = new Player(charName);
+        player = new Player(charName, character);
         addObject(player, getWidth()/2, getHeight()/2);
         
         bg = new GreenfootImage("stages/halloweencastle/background.png"); //o_0

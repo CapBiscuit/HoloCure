@@ -13,13 +13,13 @@ public class Attack extends Actor
     // Stats
     int range = 150;
 
-    public Attack(String charName, int rotation)
+    public Attack(String charName, int rotation, float attack_size)
     {
         
         switch (charName) {
             case "suisei": 
                 frames = new GreenfootImage[6];
-                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/suisei/attack.png"), 6,1,0,6,1);
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/suisei/attack.png"), 6,1,0,6,attack_size);
                 break;
             case "gura":
                 frames = new GreenfootImage[4];

@@ -6,9 +6,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 public class HoloOffice extends Game
 {
-    public HoloOffice(String charName)
+    public HoloOffice(String charName, int character)
     {
-        player = new Player(charName);
+        player = new Player(charName, character);
         addObject(player, getWidth()/2, getHeight()/2);
         
         bg = new GreenfootImage("stages/holooffice/background.png");//o_0

@@ -26,6 +26,8 @@ public class Player extends Actor
     int WeaponCooldown = 0;
     int BurstCooldown = 50;
     int BURST = 0;
+    int[] attack_indexes = {character, -1, -1, -1, -1, -1};
+    float[] attack_sizes = {1, 0, 0, 0, 0, 0};
     
     // Exp
     int Exp = 0;
@@ -39,7 +41,7 @@ public class Player extends Actor
 
     // Attack
     int attackCooldown = 0;
-    public Player(String charName)
+    public Player(String charName, int character)
     {
         this.charName = charName;
         standSets = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/" + charName + "/" + charName + ".png"), 6,2,0,3,2);
@@ -52,13 +54,26 @@ public class Player extends Actor
     {
         if (this != null) {
             movements();
-            if (charName == "amelia") shoot();
-            else attack();
+            attack();
             death();
             update();
         }
     }
-
+    
+    public void attack() {
+        for (int i = 0; i < 6; i++) {
+            if (attack_indexes[i] == -1) {
+                continue;
+            }
+            else if (attack_indexes[i] == 1) {
+                shoot();
+            }
+            else {
+                melee(attack_indexes[i]);
+            }
+        }
+    }
+    
     /**
      * Amelia Exclusive Attack  -  a  G u n    // Never give your VTuber a GUN
      * 
@@ -97,7 +112,7 @@ public class Player extends Actor
      * A little buggy, but whatever...
      */
     
-    public void attack()
+    public void melee(float resize)
     {
         MouseInfo mouse = Greenfoot.getMouseInfo();
         if (mouse == null) return; // no mouse info available
@@ -107,7 +122,7 @@ public class Player extends Actor
         if (attackCooldown == 0) {
             int offsetX = 90 - Math.abs(angleDeg);
             int offsetY = (Math.abs(angleDeg) <= 90) ? angleDeg : (Math.abs(angleDeg) == angleDeg) ? 180 - angleDeg : (180 + angleDeg) * -1;
-            Attack attack = new Attack(charName, angleDeg);
+            Attack attack = new Attack(charName, angleDeg, resize);
             getWorld().addObject(attack, getX() + offsetX, getY() + offsetY);
             attackCooldown = 60;
         }

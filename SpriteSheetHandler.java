@@ -11,7 +11,7 @@ public class SpriteSheetHandler {
      * @param RESIZE resizes all images by multiplying by this amount
      * @return an array of images
      */
-    public static GreenfootImage[] splitSheetHorizontal(GreenfootImage sheet, int totalColums, int totalRows, int currentRow, int neededFrames, int RESIZE) {
+    public static GreenfootImage[] splitSheetHorizontal(GreenfootImage sheet, int totalColums, int totalRows, int currentRow, int neededFrames, float RESIZE) {
         GreenfootImage[] images = new GreenfootImage[neededFrames];
 
         int frameWidth = sheet.getWidth() / totalColums;
@@ -21,7 +21,7 @@ public class SpriteSheetHandler {
         for (int currentColum = 0; currentColum < neededFrames; currentColum++) {
             GreenfootImage frame = new GreenfootImage(frameWidth, frameHeight);
             frame.drawImage(sheet, -currentColum * frameWidth, -currentRow * frameHeight);
-            frame.scale(frame.getWidth() * RESIZE, frame.getHeight() * RESIZE);
+            frame.scale((int)(frame.getWidth() * RESIZE), (int)(frame.getHeight() * RESIZE));
             images[currentColum] = frame;
         }
         
@@ -38,7 +38,7 @@ public class SpriteSheetHandler {
      * @param RESIZE resizes all images by multiplying by this amount
      * @return an array of images
      */
-    public static GreenfootImage[] splitSheetVertical(GreenfootImage sheet, int totalColums, int totalRows, int currentColum, int neededFrames, int RESIZE) {
+    public static GreenfootImage[] splitSheetVertical(GreenfootImage sheet, int totalColums, int totalRows, int currentColum, int neededFrames, float RESIZE) {
         GreenfootImage[] images = new GreenfootImage[neededFrames];
 
         int frameWidth = sheet.getWidth() / totalColums;
@@ -48,7 +48,7 @@ public class SpriteSheetHandler {
         for (int currentRow = 0; currentRow < neededFrames; currentRow++) {
             GreenfootImage frame = new GreenfootImage(frameWidth, frameHeight);
             frame.drawImage(sheet, -currentColum * frameWidth, -currentRow * frameHeight);
-            frame.scale(frame.getWidth() * RESIZE, frame.getHeight() * RESIZE);
+            frame.scale((int)(frame.getWidth() * RESIZE), (int)(frame.getHeight() * RESIZE));
             images[currentRow] = frame;
         }
         
