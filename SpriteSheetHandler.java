@@ -11,7 +11,7 @@ public class SpriteSheetHandler {
      * @param RESIZE resizes all images by multiplying by this amount
      * @return an array of images
      */
-    public static GreenfootImage[] splitSheetHorizontal(GreenfootImage sheet, int totalColums, int totalRows, int currentRow, int neededFrames, float RESIZE) {
+    public static GreenfootImage[] splitSheetHorizontal(GreenfootImage sheet, int totalColums, int totalRows, int currentRow, int neededFrames, double RESIZE) {
         GreenfootImage[] images = new GreenfootImage[neededFrames];
 
         int frameWidth = sheet.getWidth() / totalColums;
@@ -38,7 +38,7 @@ public class SpriteSheetHandler {
      * @param RESIZE resizes all images by multiplying by this amount
      * @return an array of images
      */
-    public static GreenfootImage[] splitSheetVertical(GreenfootImage sheet, int totalColums, int totalRows, int currentColum, int neededFrames, float RESIZE) {
+    public static GreenfootImage[] splitSheetVertical(GreenfootImage sheet, int totalColums, int totalRows, int currentColum, int neededFrames, double RESIZE) {
         GreenfootImage[] images = new GreenfootImage[neededFrames];
 
         int frameWidth = sheet.getWidth() / totalColums;

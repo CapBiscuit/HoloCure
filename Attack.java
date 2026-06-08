@@ -1,4 +1,5 @@
 import greenfoot.*;
+import java.util.ArrayList;
 
 
 public class Attack extends Actor
@@ -9,48 +10,50 @@ public class Attack extends Actor
     int animationDelay = 0;
     int animationInterval = 5;
     int rotation;
+    int damage = 0;
     
     // Stats
     int range = 150;
+    ArrayList<Enemy> enemies_hit = new ArrayList<Enemy>();
 
-    public Attack(String charName, int rotation, float attack_size)
+    public Attack(int weapon_index, int rotation, double attack_size, int dmg)
     {
         
-        switch (charName) {
-            case "suisei": 
+        switch (weapon_index) {
+            case 0: 
                 frames = new GreenfootImage[6];
                 frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/suisei/attack.png"), 6,1,0,6,attack_size);
                 break;
-            case "gura":
+            case 2:
                 frames = new GreenfootImage[4];
                 frames = SpriteSheetHandler.splitSheetVertical(new GreenfootImage("characters/gura/attack.png"), 1,4,0,4,1);
                 break;
-            case "ina": 
+            case 3: 
                 frames = new GreenfootImage[12];
                 frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/ina/attack.png"), 12,1,0,12,1);
                 break;
-            case "kiara": 
+            case 4: 
                 frames = new GreenfootImage[8];
                 frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/kiara/attack.png"), 8,1,0,8,1);
                 break;
-            case "mori":
+            case 5:
                 frames = new GreenfootImage[10];
                 frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/mori/attack.png"), 10,1,0,10,1);
                 break;
-            case "filian":
+            case 6:
                 frames = new GreenfootImage[6];
                 frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/filian/attack.png"), 6,1,0,6,1);
                 break;
-            case "neuro":
+            case 7:
                 frames = new GreenfootImage[6];
                 frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/neuro/attack.png"), 6,1,0,6,1);
                 break;
-            case "cecilia":
+            case 8:
                 frames = new GreenfootImage[6];
                 frames = SpriteSheetHandler.splitSheetVertical(new GreenfootImage("characters/cecilia/attack.png"), 1,6,0,6,1);
                 break;
         }
-        
+        damage = dmg;
         setImage(frames[0]);
         this.rotation = rotation;
     }
@@ -59,9 +62,13 @@ public class Attack extends Actor
     {
         
         Enemy enemy = (Enemy) getOneIntersectingObject(Enemy.class);
-        if (enemy != null && enemy.last_hit_attack != this) {
-            enemy.hit();
-            enemy.last_hit_attack = this;
+        boolean fl = false;
+        for (int i = 0; i < enemies_hit.size(); i++) {
+            if (enemies_hit.get(i) == enemy) fl = true;
+        } 
+        if (!fl && enemy != null) {
+            enemy.hit(damage);
+            enemies_hit.add(enemy);
         };
         
         animationDelay--;

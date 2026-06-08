@@ -10,7 +10,7 @@ public class Enemy extends World_objects
     int ANIM_SPEED = 10;
     int WALK_SPEED = 1;
     boolean facingRight = false;
-    int hp = 2;
+    int hp = 200;
     Attack last_hit_attack = null;
 
     public void act()
@@ -66,8 +66,8 @@ public class Enemy extends World_objects
     }
     
     
-    public void hit() {
-        hp--;
+    public void hit(int damage) {
+        hp -= damage;
     }
     
     

@@ -1,4 +1,5 @@
 import greenfoot.*;
+import java.util.ArrayList;
 
 public class Player extends Actor
 {
@@ -20,14 +21,14 @@ public class Player extends Actor
     int animationInterval = 10;
     
     // Stats
+    int HP_CAP = 100;
     int HP = 100;
-    int ATK = 1;
+    float ATK_MOD = 1;
     int INVINCIBILITY = 0;
     int WeaponCooldown = 0;
     int BurstCooldown = 50;
     int BURST = 0;
-    int[] attack_indexes = {character, -1, -1, -1, -1, -1};
-    float[] attack_sizes = {1, 0, 0, 0, 0, 0};
+    ArrayList<Attack_Item> attacks = new ArrayList<Attack_Item>();
     
     // Exp
     int Exp = 0;
@@ -47,30 +48,15 @@ public class Player extends Actor
         standSets = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/" + charName + "/" + charName + ".png"), 6,2,0,3,2);
         moveSets  = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/" + charName + "/" + charName + ".png"), 6,2,1,6,2);
         setImage(standSets[0]);
-        
+        attacks.add(new Attack_Item(character));
     }
 
     public void act()
     {
         if (this != null) {
             movements();
-            attack();
             death();
             update();
-        }
-    }
-    
-    public void attack() {
-        for (int i = 0; i < 6; i++) {
-            if (attack_indexes[i] == -1) {
-                continue;
-            }
-            else if (attack_indexes[i] == 1) {
-                shoot();
-            }
-            else {
-                melee(attack_indexes[i]);
-            }
         }
     }
     
@@ -111,22 +97,6 @@ public class Player extends Actor
      * Creates Attack that deals damage to Enemies.
      * A little buggy, but whatever...
      */
-    
-    public void melee(float resize)
-    {
-        MouseInfo mouse = Greenfoot.getMouseInfo();
-        if (mouse == null) return; // no mouse info available
-        int angleDeg = (int) Math.toDegrees(Math.atan2(mouse.getY() - getY(), mouse.getX() - getX())); //Rotation
-        
-        if (attackCooldown > 0) attackCooldown--;
-        if (attackCooldown == 0) {
-            int offsetX = 90 - Math.abs(angleDeg);
-            int offsetY = (Math.abs(angleDeg) <= 90) ? angleDeg : (Math.abs(angleDeg) == angleDeg) ? 180 - angleDeg : (180 + angleDeg) * -1;
-            Attack attack = new Attack(charName, angleDeg, resize);
-            getWorld().addObject(attack, getX() + offsetX, getY() + offsetY);
-            attackCooldown = 60;
-        }
-    }
 
     public void movements()
     {
@@ -223,7 +193,6 @@ public class Player extends Actor
     {
         Exp += amount;
         if (Exp == EXP_CAP) {
-            ATK++;
             if (HP != 100) HP += 10;
             TimeCountdown time = (TimeCountdown) getWorld().getObjects(TimeCountdown.class).get(0);
             time.timeInSeconds += 50;
