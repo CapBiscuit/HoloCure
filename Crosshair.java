@@ -2,15 +2,15 @@ import greenfoot.*;
 
 public class Crosshair extends Actor 
 {
-    int rotation = 1;
     public void act() 
     {
-        setImage("UI/Crosshair.png");
+        GreenfootImage img = new GreenfootImage("UI/Crosshair.png");
+        img.scale(50,50);
+        setImage(img);
         if (Greenfoot.getMouseInfo() != null) {
             int mouseX = Greenfoot.getMouseInfo().getX();
             int mouseY = Greenfoot.getMouseInfo().getY();
             setLocation(mouseX, mouseY);
         }
-        setRotation(rotation++);
     }    
 }
