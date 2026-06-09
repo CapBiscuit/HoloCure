@@ -3,26 +3,31 @@ import greenfoot.*;
 public class Menu extends World
 {
     //Default setting
-    String menu = "main";
+    String menu     = "main";
     String charName = "suisei";
-    int selectedMenu = 1;
+    
+    int selectedMenu      = 1;
     int selectedCharacter = 1;
-    int selectedStage = 1;
+    int selectedStage     = 1;
+    int selectedAuthor    = 1;
+    
     boolean keyCooldown = true;
-    boolean standsOn = true;
+    
+    boolean standsOn    = true;
     boolean mannequinOn = true;
+    boolean authorOn    = true;
     
-    GreenfootImage[] menuBackgrounds = new GreenfootImage[4];
-    GreenfootImage[] charBackgrounds = new GreenfootImage[9];
-    GreenfootImage[] stageBackgrounds = new GreenfootImage[3];
-    GreenfootImage tutorialBackground = new GreenfootImage("mainmenu/tutorial.png");
-    GreenfootImage authorsBackground = new GreenfootImage("mainmenu/authors.png");
+    GreenfootImage[] menuBackgrounds    = new GreenfootImage[4];
+    GreenfootImage[] charBackgrounds    = new GreenfootImage[9];
+    GreenfootImage[] stageBackgrounds   = new GreenfootImage[3];
+    GreenfootImage[] authorsBackgrounds = new GreenfootImage[4];
+    GreenfootImage   tutorialBackground = new GreenfootImage("mainmenu/tutorial.png");
     
-    GreenfootSound music = new GreenfootSound("OST/HoloCure OST - Title.mp3");
-    GreenfootSound cecilia = new GreenfootSound("OST/Nevermore.mp3"); //Nevermore
-    GreenfootSound filiana = new GreenfootSound("OST/Snackers.mp3"); //Snackers
-    GreenfootSound neuro = new GreenfootSound("OST/Truck.mp3"); //Chinatown //Truck //Evil
-    GreenfootSound vova = new GreenfootSound("OST/HoloCure OST - Title.mp3");
+    GreenfootSound music    = new GreenfootSound("OST/HoloCure OST - Title.mp3");
+    GreenfootSound cecilia  = new GreenfootSound("OST/Nevermore.mp3"); //Nevermore
+    GreenfootSound filiana  = new GreenfootSound("OST/Snackers.mp3"); //Snackers
+    GreenfootSound neuro    = new GreenfootSound("OST/Truck.mp3"); //Chinatown //Truck //Evil
+    GreenfootSound vova     = new GreenfootSound("OST/HoloCure OST - Title.mp3");
     
     public Menu()
     {
@@ -40,8 +45,11 @@ public class Menu extends World
             stageBackgrounds[i] = new GreenfootImage("mainmenu/stage_picker_" + (i+1) + ".png");
             stageBackgrounds[i].scale(getWidth(), getHeight());
         }
+        for (int i = 0; i < authorsBackgrounds.length; i++) {
+            authorsBackgrounds[i] = new GreenfootImage("mainmenu/authors_" + (i+1) + ".png");
+            authorsBackgrounds[i].scale(getWidth(), getHeight());
+        }
         tutorialBackground.scale(getWidth(), getHeight());
-        authorsBackground.scale(getWidth(), getHeight());
         music.playLoop();
     }
 
@@ -56,8 +64,9 @@ public class Menu extends World
     
     public void showAuthors()
     {
-        setBackground(authorsBackground);
+        setBackground(authorsBackgrounds[selectedAuthor-1]);
         menu = "authors";
+        authorOffOn();
     }
 
     public void showCharacterSelection()
@@ -75,11 +84,11 @@ public class Menu extends World
 
     public void standOffOn() {
         if (standsOn) {
-            addObject(new Stand("gura",  0), 220, 420);
-            addObject(new Stand("kiara", 15), 500, 420);
-            addObject(new Stand("amelia",19), 120, 460);
-            addObject(new Stand("mori",  32), 600, 460);
-            addObject(new Stand("ina",   16), 370, 460);
+            addObject(new Stand("gura",  0, 3), 220, 420);
+            addObject(new Stand("kiara", 15, 3), 500, 420);
+            addObject(new Stand("amelia",19, 3), 120, 460);
+            addObject(new Stand("mori",  32, 3), 600, 460);
+            addObject(new Stand("ina",   16, 3), 370, 460);
             standsOn = false;
         } else {
             for (Stand std : getObjects(Stand.class)) removeObject(std);
@@ -88,8 +97,20 @@ public class Menu extends World
     }
     
     public void mannequinOffOn() {
-        if (mannequinOn) {addObject(new PlayerNot(), 1000, 400);mannequinOn=false;}
+        if (mannequinOn) {addObject(new PlayerNot(), 990, 400);mannequinOn=false;}
         else {for (PlayerNot mannequin: getObjects(PlayerNot.class)) removeObject(mannequin);mannequinOn=true;}
+    }
+    
+    public void authorOffOn() {
+        if (authorOn) {
+            addObject(new PlayerNot(), 990, 400);
+            addObject(new Stand("cecilia",0, 5), 360, 330);
+            authorOn = false;
+        } else {
+            for (PlayerNot mannequin : getObjects(PlayerNot.class)) removeObject(mannequin);
+            for (Stand std : getObjects(Stand.class)) removeObject(std);
+            authorOn = true;
+        }
     }
     
     public void switchToGameStage() {
@@ -125,19 +146,40 @@ public class Menu extends World
             {selectedMenu--; keyCooldown = true;Greenfoot.playSound("menu/select.wav");}
             if (!keyCooldown && (Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down")) && selectedMenu != 4) 
             {selectedMenu++; keyCooldown = true;Greenfoot.playSound("menu/select.wav");}
+            
             setBackground(menuBackgrounds[selectedMenu-1]);
+            
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter")) && selectedMenu == 1) 
             {Greenfoot.playSound("menu/confirm.wav");showCharacterSelection(); standOffOn(); keyCooldown = true;}
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter")) && selectedMenu == 2) 
             {Greenfoot.playSound("menu/confirm.wav");setBackground(tutorialBackground); menu = "tutorial"; keyCooldown = true;}
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter")) && selectedMenu == 3) 
-            {Greenfoot.playSound("menu/confirm.wav");showAuthors(); standOffOn(); keyCooldown = true;}
+            {Greenfoot.playSound("menu/confirm.wav");standOffOn(); showAuthors();  keyCooldown = true;}
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter")) && selectedMenu == 4) 
             {music.pause(); Greenfoot.stop();}
         }
         if (menu == "authors") {
+            PlayerNot mannequin = getObjects(PlayerNot.class).get(0);
+            Stand std = getObjects(Stand.class).get(0);
+            
+            //switching mannequin
+            switch(selectedAuthor) {
+                case 1: mannequin.Switch("cecilia"); std.Switch("cecilia"); break;
+                case 2: mannequin.Switch("filian"); std.Switch("filian"); break;
+                case 3: mannequin.Switch("neuro"); std.Switch("neuro"); break;
+                case 4: mannequin.Switch("vova"); std.Switch("vova"); break;
+            }
+            
+            setBackground(authorsBackgrounds[selectedAuthor-1]);
+            
             if (!keyCooldown && (Greenfoot.isKeyDown("shift") || Greenfoot.isKeyDown("escape"))) {
-                Greenfoot.playSound("menu/exit.wav");showMainMenu(); keyCooldown = true;}
+                Greenfoot.playSound("menu/exit.wav"); authorOffOn(); showMainMenu(); keyCooldown = true;}
+            if (!keyCooldown && (Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left"))) {
+                selectedAuthor--; keyCooldown = true; Greenfoot.playSound("menu/select.wav");}
+            if (!keyCooldown && (Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right"))) {
+                selectedAuthor++; keyCooldown = true; Greenfoot.playSound("menu/select.wav");}
+            if (selectedAuthor == 0) selectedAuthor = 4; 
+            if (selectedAuthor == 5) selectedAuthor = 1; 
         }
         if (menu == "tutorial") {
             if (!keyCooldown && (Greenfoot.isKeyDown("shift") || Greenfoot.isKeyDown("escape"))) {
@@ -163,15 +205,15 @@ public class Menu extends World
             
             //switching mannequin
             switch(selectedCharacter) {
-                case 1: mannequin.Switch("amelia"); break;
-                case 2: mannequin.Switch("gura"); break;
-                case 3: mannequin.Switch("ina"); break;
-                case 4: mannequin.Switch("kiara"); break;
-                case 5: mannequin.Switch("mori"); break;
+                case 1: mannequin.Switch("amelia");  break;
+                case 2: mannequin.Switch("gura");    break;
+                case 3: mannequin.Switch("ina");     break;
+                case 4: mannequin.Switch("kiara");   break;
+                case 5: mannequin.Switch("mori");    break;
                 case 6: mannequin.Switch("cecilia"); break;
-                case 7: mannequin.Switch("filian"); break;
-                case 8: mannequin.Switch("neuro"); break;
-                case 9: mannequin.Switch("vova"); break;
+                case 7: mannequin.Switch("filian");  break;
+                case 8: mannequin.Switch("neuro");   break;
+                case 9: mannequin.Switch("vova");    break;
             }
             
             //background

@@ -15,8 +15,8 @@ public class PlayerNot extends Actor
     public PlayerNot()
     {
         this.charName = charName;
-        standSets = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/amelia/amelia.png"), 6,2,0,3,2);
-        moveSets  = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/amelia/amelia.png"), 6,2,1,6,2);
+        standSets = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/amelia/amelia.png"), 6,2,0,3,4);
+        moveSets  = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/amelia/amelia.png"), 6,2,1,6,4);
         setImage(standSets[0]);
     }
     
@@ -26,8 +26,8 @@ public class PlayerNot extends Actor
     }
     
     public void Switch(String charName) {
-        standSets = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/" + charName + "/" + charName + ".png"), 6,2,0,3,2);
-        moveSets  = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/" + charName + "/" + charName + ".png"), 6,2,1,6,2);
+        standSets = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/" + charName + "/" + charName + ".png"), 6,2,0,3,4);
+        moveSets  = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/" + charName + "/" + charName + ".png"), 6,2,1,6,4);
     }
     
     public void update()
