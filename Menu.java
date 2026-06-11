@@ -104,7 +104,7 @@ public class Menu extends World
     public void authorOffOn() {
         if (authorOn) {
             addObject(new PlayerNot(), 990, 400);
-            addObject(new Stand("cecilia",0, 5), 360, 330);
+            addObject(new Stand("cecilia",0, 1), 360, 330);
             authorOn = false;
         } else {
             for (PlayerNot mannequin : getObjects(PlayerNot.class)) removeObject(mannequin);
@@ -164,10 +164,10 @@ public class Menu extends World
             
             //switching mannequin
             switch(selectedAuthor) {
-                case 1: mannequin.Switch("cecilia"); std.Switch("cecilia"); break;
-                case 2: mannequin.Switch("filian"); std.Switch("filian"); break;
-                case 3: mannequin.Switch("neuro"); std.Switch("neuro"); break;
-                case 4: mannequin.Switch("vova"); std.Switch("vova"); break;
+                case 1: mannequin.Switch("cecilia"); std.charName = "cecilia"; std.rescale = 1; break;
+                case 2: mannequin.Switch("filian"); std.charName = "filian"; std.rescale = 5; break;
+                case 3: mannequin.Switch("neuro"); std.charName = "neuro"; std.rescale = 5; break;
+                case 4: mannequin.Switch("vova"); std.charName = "vova"; std.rescale = 5; break;
             }
             
             setBackground(authorsBackgrounds[selectedAuthor-1]);

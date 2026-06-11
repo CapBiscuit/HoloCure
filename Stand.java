@@ -5,11 +5,13 @@ public class Stand extends Actor
     int whY = 10;
     int wait;
     float rescale;
+    String charName;
     boolean isFlying = true;
     public Stand(String charName, int wait, float rescale)
     {
         this.wait = wait;
         this.rescale = rescale;
+        this.charName = charName;
         GreenfootImage img = new GreenfootImage("characters/" + charName + "/stand.png");
         img.scale((int)(img.getWidth()*rescale), (int)(img.getHeight()*rescale));
         setImage(img);
@@ -17,11 +19,22 @@ public class Stand extends Actor
     
     public void act()
     {
+        GreenfootImage img = new GreenfootImage("characters/" + charName + "/stand.png");
+        img.scale((int)(img.getWidth()*rescale), (int)(img.getHeight()*rescale));
+        setImage(img);
         if (wait == 0) fly();
         else wait--;
     }
     
     public void Switch(String charName) {
+        this.charName = charName;
+        GreenfootImage img = new GreenfootImage("characters/" + charName + "/stand.png");
+        img.scale((int)(img.getWidth()*rescale), (int)(img.getHeight()*rescale));
+        setImage(img);
+    }
+    
+    public void Rescale(int rescale) {
+        this.rescale = rescale;
         GreenfootImage img = new GreenfootImage("characters/" + charName + "/stand.png");
         img.scale((int)(img.getWidth()*rescale), (int)(img.getHeight()*rescale));
         setImage(img);
