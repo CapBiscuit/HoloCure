@@ -11,7 +11,7 @@ public class GameOver extends World {
     public GameOver() {    
         super(1280, 720, 1);
         setBackground("end/CCTV_" + (Greenfoot.getRandomNumber(6)+1) + ".png");
-        GreenfootSound music = new GreenfootSound("Let this ensemble begin! holoJustice.mp3");
+        GreenfootSound music = new GreenfootSound("OST/Let this ensemble begin! holoJustice.mp3");
         music.playLoop();
     }
 }
