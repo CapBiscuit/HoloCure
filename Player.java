@@ -7,6 +7,8 @@ public class Player extends Actor
     public double worldX;
     public double worldY;
     
+    boolean stop = false;
+    
     // Frames
     GreenfootImage[] standSets = new GreenfootImage[3];
     GreenfootImage[] moveSets = new GreenfootImage[6];
@@ -45,15 +47,15 @@ public class Player extends Actor
     public Player(String charName, int character)
     {
         this.charName = charName;
-        standSets = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/" + charName + "/" + charName + ".png"), 6,2,0,3,2);
-        moveSets  = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/" + charName + "/" + charName + ".png"), 6,2,1,6,2);
+        standSets = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/" + charName + "/" + charName + ".png"), 6,2,0,3,1.5);
+        moveSets  = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/" + charName + "/" + charName + ".png"), 6,2,1,6,1.5);
         setImage(standSets[0]);
         attacks.add(new Attack_Item(character));
     }
 
     public void act()
     {
-        if (this != null) {
+        if (this != null && !stop) {
             movements();
             death();
             update();
@@ -82,7 +84,7 @@ public class Player extends Actor
         int angleDeg = (int) Math.toDegrees(Math.atan2(mouse.getY() - getY(), mouse.getX() - getX())); //Rotation
         
         if (BURST >= BurstCooldown && WeaponCooldown == 10) {
-            FriendlyProjectile projectile = new FriendlyProjectile(angleDeg);
+            Projectile projectile = new Projectile(angleDeg);
             projectile.worldX = worldX;
             projectile.worldY = worldY;
             getWorld().addObject(projectile, 0, 0);
@@ -102,45 +104,35 @@ public class Player extends Actor
     {
         int xSpeed = 0;
         int ySpeed = 0;
-        int kostil = 0;
+        int buttonPressed = 0;
 
-        if (Greenfoot.isKeyDown("up")|| Greenfoot.isKeyDown("w")) {
+        if (Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w")) {
             ySpeed = -WALK_SPEED;
-            STATUS = "walk";
-            kostil++;
+            buttonPressed++;
         }
-        if (Greenfoot.isKeyDown("left")|| Greenfoot.isKeyDown("a")) {
+        if (Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a")) {
             xSpeed = -WALK_SPEED;
             facingRight = false;
-            STATUS = "walk";
-            kostil++;
+            buttonPressed++;
         }
-        if (Greenfoot.isKeyDown("down")|| Greenfoot.isKeyDown("s")) {
+        if (Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("s")) {
             ySpeed = WALK_SPEED;
-            STATUS = "walk";
-            kostil++;
+            buttonPressed++;
         }
-        if (Greenfoot.isKeyDown("right")|| Greenfoot.isKeyDown("d")) {
+        if (Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d")) {
             xSpeed = WALK_SPEED;
             facingRight = true;
-            STATUS = "walk";
-            kostil++;
+            buttonPressed++;
         }
         if (!(Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w") ||
               Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a") ||
               Greenfoot.isKeyDown("down")|| Greenfoot.isKeyDown("s") ||
               Greenfoot.isKeyDown("right")|| Greenfoot.isKeyDown("d"))) {
             STATUS = "stand";
-        }
-
-        //setLocation(getX() + xSpeed, getY() + ySpeed); о_0 забудьте о setLocation это миф
-        if (kostil == 2){
-            worldX += xSpeed / Math.sqrt(2);
-            worldY += ySpeed / Math.sqrt(2);
-        } else{
-            worldX += xSpeed;
-            worldY += ySpeed;
-        }
+        } else STATUS = "walk";
+        
+        worldX += buttonPressed >= 2 ? xSpeed / Math.sqrt(2) : xSpeed;
+        worldY += buttonPressed >= 2 ? ySpeed / Math.sqrt(2) : ySpeed;
     }
 
     public void death()
@@ -162,14 +154,9 @@ public class Player extends Actor
     {
         animationDelay--;
         if (animationDelay <= 0) {
-            animationDelay = animationInterval;
-            if (STATUS == "walk") {
-                frameIndexStand = 0;
-                frameIndexMov = (frameIndexMov + 1) % moveSets.length;
-            } else if (STATUS == "stand") {
-                frameIndexMov = 0;
-                frameIndexStand = (frameIndexStand + 1) % standSets.length;
-            }
+            animationDelay  = animationInterval;
+            frameIndexStand = STATUS == "walk"  ? 0 : (frameIndexStand + 1) % standSets.length;
+            frameIndexMov   = STATUS == "stand" ? 0 : (frameIndexMov   + 1) % moveSets.length;
         }
 
         GreenfootImage img = (STATUS == "walk") ? moveSets[frameIndexMov] : standSets[frameIndexStand];
@@ -195,7 +182,6 @@ public class Player extends Actor
         if (Exp == EXP_CAP) {
             if (HP != 100) HP += 10;
             TimeCountdown time = (TimeCountdown) getWorld().getObjects(TimeCountdown.class).get(0);
-            time.timeInSeconds += 50;
             Exp = 0;
             EXP_CAP = (int)(EXP_CAP * 1.2);
         }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Attack extends Actor
 {
+    boolean stop = false;
     // Animation
     GreenfootImage[] frames;
     int frameIndex = 0;
@@ -26,31 +27,31 @@ public class Attack extends Actor
                 break;
             case 2:
                 frames = new GreenfootImage[4];
-                frames = SpriteSheetHandler.splitSheetVertical(new GreenfootImage("characters/gura/attack.png"), 1,4,0,4,1);
+                frames = SpriteSheetHandler.splitSheetVertical(new GreenfootImage("characters/gura/attack.png"), 1,4,0,4,3);
                 break;
             case 3: 
                 frames = new GreenfootImage[12];
-                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/ina/attack.png"), 12,1,0,12,1);
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/ina/attack.png"), 12,1,0,12,3);
                 break;
             case 4: 
                 frames = new GreenfootImage[8];
-                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/kiara/attack.png"), 8,1,0,8,1);
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/kiara/attack.png"), 8,1,0,8,3);
                 break;
             case 5:
                 frames = new GreenfootImage[10];
-                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/mori/attack.png"), 10,1,0,10,1);
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/mori/attack.png"), 10,1,0,10,3);
                 break;
             case 6:
                 frames = new GreenfootImage[6];
-                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/filian/attack.png"), 6,1,0,6,1);
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/filian/attack.png"), 6,1,0,6,3);
                 break;
             case 7:
                 frames = new GreenfootImage[6];
-                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/neuro/attack.png"), 6,1,0,6,1);
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/neuro/attack.png"), 6,1,0,6,3);
                 break;
             case 8:
                 frames = new GreenfootImage[6];
-                frames = SpriteSheetHandler.splitSheetVertical(new GreenfootImage("characters/cecilia/attack.png"), 1,6,0,6,1);
+                frames = SpriteSheetHandler.splitSheetVertical(new GreenfootImage("characters/cecilia/attack.png"), 1,6,0,6,3);
                 break;
         }
         damage = dmg;
@@ -60,24 +61,25 @@ public class Attack extends Actor
 
     public void act()
     {
-        
-        Enemy enemy = (Enemy) getOneIntersectingObject(Enemy.class);
-        boolean fl = false;
-        for (int i = 0; i < enemies_hit.size(); i++) {
-            if (enemies_hit.get(i) == enemy) fl = true;
-        } 
-        if (!fl && enemy != null) {
-            enemy.hit(damage);
-            enemies_hit.add(enemy);
-        };
-        
-        animationDelay--;
-        if (animationDelay <= 0) {
-            animationDelay = animationInterval;
-            frameIndex++;
-            if (frameIndex < frames.length) setImage(frames[frameIndex]);
-            else getWorld().removeObject(this);
-            setRotation(rotation);
+        if (!stop) {
+            Enemy enemy = (Enemy) getOneIntersectingObject(Enemy.class);
+            boolean fl = false;
+            for (int i = 0; i < enemies_hit.size(); i++) {
+                if (enemies_hit.get(i) == enemy) fl = true;
+            } 
+            if (!fl && enemy != null) {
+                enemy.hit(damage);
+                enemies_hit.add(enemy);
+            };
+            
+            animationDelay--;
+            if (animationDelay <= 0) {
+                animationDelay = animationInterval;
+                frameIndex++;
+                if (frameIndex < frames.length) setImage(frames[frameIndex]);
+                else getWorld().removeObject(this);
+                setRotation(rotation);
+            }
         }
     }
 }

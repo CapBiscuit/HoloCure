@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Attack_Item extends Actor
 {
+    boolean stop = false;
     int cooldown_maximum = 0;
     int cooldown_at_the_moment = 0;
     int damage = 100;
@@ -22,24 +23,24 @@ public class Attack_Item extends Actor
         switch(index) {
             case 0: {
                 type = 1;
-                damage = 100;
-                size *= 1;
+                damage = 100;                
                 amount = 1;
                 cooldown_maximum = 90;
+                size *= 1;
             }
             case 1: {
                 type = 2;
                 damage = 100;
-                cooldown_maximum = 20;
                 amount = 3;
+                cooldown_maximum = 20;
                 hit_limit = 1;
             }
             case 2: {
                 type = 1;
                 damage = 160;
-                size *= 1.4;
                 amount = 1;
                 cooldown_maximum = 70;
+                size *= 1.4;
             }
             case 3: {
                 type = 1;
@@ -52,15 +53,15 @@ public class Attack_Item extends Actor
                 type = 1;
                 damage = 130;
                 cooldown_maximum = 70;
-                size *= 0.8;
                 amount = 1;
+                size *= 0.8;
             }
             case 5: {
+                type = 1;
                 damage = 120;
                 cooldown_maximum = 90;
-                size *= 1.5;
                 amount = 1;
-                type = 1;
+                size *= 1.5;
             }
         }
     }
@@ -68,9 +69,10 @@ public class Attack_Item extends Actor
     
     public void act()
     {
-        if (type == 1) melee();        
-    }
-    
+        if (!stop) {
+            if (type == 1) melee();        
+        }
+    }    
     
     public void melee()
     {

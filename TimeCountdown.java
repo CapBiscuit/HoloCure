@@ -1,24 +1,20 @@
 import greenfoot.*;
 
 public class TimeCountdown extends Actor {
-    int timeInSeconds;      // remaining seconds
-    int actCounter;         // counts acts to decrement each second
+    int sec = 0;
+    int min = 0;
+    int actCounter = 0;         // counts acts to decrement each second
     int ACTS_PER_SECOND = 60;
-    
-    public TimeCountdown(int startSeconds) {
-        timeInSeconds = startSeconds;
-        actCounter = 0;
-        updateImage();
-    }
+    boolean stop = false;
     
     public void act() {
-        actCounter++;
-        if (actCounter >= ACTS_PER_SECOND) {
-            actCounter = 0;
-            if (timeInSeconds > 0) {
-                timeInSeconds--;
+        if (!stop) {
+            actCounter++;
+            if (actCounter >= ACTS_PER_SECOND) {
+                actCounter = 0;
+                sec++;
+                if (sec == 60) { sec -= 60; min++; }
                 updateImage();
-                if (timeInSeconds == 0) Greenfoot.setWorld(new GameOver());
             }
         }
     }
@@ -27,7 +23,7 @@ public class TimeCountdown extends Actor {
         GreenfootImage img = new GreenfootImage(120, 40);
         img.setColor(Color.WHITE);
         img.setFont(new Font("Arial", true, false, 20));
-        img.drawString("Time: " + timeInSeconds, 10, 25);
+        img.drawString(min + " : " + sec, 10, 25);
         setImage(img);
     }
     

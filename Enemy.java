@@ -10,40 +10,39 @@ public class Enemy extends World_objects
     int ANIM_SPEED = 10;
     int WALK_SPEED = 1;
     boolean facingRight = false;
+    boolean stop = false;
     int hp = 200;
     Attack last_hit_attack = null;
 
     public void act()
     {
-        
-        moveTowardsPlayer();
-        animate();
-        hitPlayer();
-        if (hp <= 0) {
-            death();
+        if (!stop) {
+            moveTowardsPlayer();
+            animate();
+            hitPlayer();
+            if (hp <= 0) death();
         }
     }
     
-    public void moveTowardsPlayer() //o_0
+    public void moveTowardsPlayer()
     {
         Player player = (Player)getWorld().getObjects(Player.class).get(0);
     
         double distanceX = worldX - player.worldX;
         double distanceY = worldY - player.worldY;
         double distance_vector = Math.sqrt(distanceX*distanceX+distanceY*distanceY);
-        if (distanceX > 0) {
-            facingRight = false;
-        }
-        else {
-            facingRight = true;
-        }
+
+        if (distanceX > 0)  facingRight = false;
+        else facingRight = true;
+        
         worldX -= distanceX / distance_vector * WALK_SPEED;
         worldY -= distanceY / distance_vector * WALK_SPEED;
-        double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-        if (distance > 2500){
-                worldX = 2 * player.worldX - worldX;
-                worldY = 2 * player.worldY - worldY;
-                return;}
+        
+        if (distance_vector > 2500){
+            worldX = 2 * player.worldX - worldX;
+            worldY = 2 * player.worldY - worldY;
+            return;
+        }
     }
 
     public void animate()

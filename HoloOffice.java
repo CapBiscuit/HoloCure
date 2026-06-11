@@ -19,7 +19,7 @@ public class HoloOffice extends Game
         addObject(player.attacks.get(0), 1, 1);
     }
     
-    public void World_logic()
+    public void spawn()
     {
         if (spawnTimer <= 0) {
             spawn(new Chumbud());

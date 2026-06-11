@@ -4,5 +4,5 @@ comment0.text=\r\n\ Stage\ 3\r\n
 comment1.params=charName\ character
 comment1.target=HalloweenCastle(java.lang.String,\ int)
 comment2.params=
-comment2.target=void\ World_logic()
+comment2.target=void\ spawn()
 numComments=3
