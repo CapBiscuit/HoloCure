@@ -74,7 +74,7 @@ public class Game extends World
         draw_background();
         update_camera();
         music.playLoop();
-        if (!keyCooldown && Greenfoot.isKeyDown("escape")) {
+        if (!keyCooldown && Greenfoot.isKeyDown("escape") && selectedPause != 5) {
             PAUSE = PAUSE ? false : true;
             keyCooldown = true;
             if (PAUSE) addObject(new Pause(), 640, 360); else removeObject(getObjects(Pause.class).get(0));
@@ -91,9 +91,13 @@ public class Game extends World
             
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter")) && selectedPause == 1) 
             {removeObject(getObjects(Pause.class).get(0)); PAUSE = false; keyCooldown = true; Greenfoot.playSound("menu/confirm.wav");}
+            if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter")) && selectedPause == 2) 
+            {selectedPause = 5; keyCooldown = true; Greenfoot.playSound("menu/confirm.wav");}
+            if (!keyCooldown && (Greenfoot.isKeyDown("escape") || Greenfoot.isKeyDown("shift")) && selectedPause == 5) 
+            {selectedPause = 2; keyCooldown = true; Greenfoot.playSound("menu/confirm.wav");}
         }
         
-        if (keyCooldown && !(Greenfoot.isKeyDown("escape") || 
+        if (keyCooldown && !(Greenfoot.isKeyDown("escape") || Greenfoot.isKeyDown("shift") || 
                              Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up") ||
                              Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down") ||
                              Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter"))) keyCooldown = false;
