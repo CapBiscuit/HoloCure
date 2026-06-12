@@ -4,10 +4,10 @@ public class Stand extends Actor
 {
     int whY = 10;
     int wait;
-    float rescale;
+    double rescale;
     String charName;
     boolean isFlying = true;
-    public Stand(String charName, int wait, float rescale)
+    public Stand(String charName, int wait, double rescale)
     {
         this.wait = wait;
         this.rescale = rescale;
