@@ -10,7 +10,6 @@ public class Attack extends Actor
     int frameIndex = 0;
     int animationDelay = 0;
     int animationInterval = 5;
-    int rotation;
     int damage = 0;
     
     // Stats
@@ -19,7 +18,6 @@ public class Attack extends Actor
 
     public Attack(int weapon_index, int rotation, double attack_size, int dmg)
     {
-        
         switch (weapon_index) {
             case 0: 
                 frames = new GreenfootImage[6];
@@ -55,8 +53,8 @@ public class Attack extends Actor
                 break;
         }
         damage = dmg;
+        setRotation(rotation);
         setImage(frames[0]);
-        this.rotation = rotation;
     }
 
     public void act()
@@ -78,7 +76,6 @@ public class Attack extends Actor
                 frameIndex++;
                 if (frameIndex < frames.length) setImage(frames[frameIndex]);
                 else getWorld().removeObject(this);
-                setRotation(rotation);
             }
         }
     }
