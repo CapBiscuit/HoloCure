@@ -15,7 +15,7 @@ public class Intro extends World
     int frameTimer = 0;
     int FRAME_DURATION = 280;
     
-    GreenfootSound music = new GreenfootSound("HoloCure OST - Intro (Save the Fans).mp3");
+    GreenfootSound music = new GreenfootSound("OST/HoloCure OST - Intro (Save the Fans).mp3");
     
     public Intro() {
         super(1280, 720, 1);
