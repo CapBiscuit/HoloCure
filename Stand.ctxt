@@ -1,9 +1,13 @@
 #BlueJ class context
 comment0.target=Stand
-comment1.params=charName\ wait
-comment1.target=Stand(java.lang.String,\ int)
+comment1.params=charName\ wait\ rescale
+comment1.target=Stand(java.lang.String,\ int,\ double)
 comment2.params=
 comment2.target=void\ act()
-comment3.params=
-comment3.target=void\ fly()
-numComments=4
+comment3.params=charName
+comment3.target=void\ Switch(java.lang.String)
+comment4.params=rescale
+comment4.target=void\ Rescale(int)
+comment5.params=
+comment5.target=void\ fly()
+numComments=6

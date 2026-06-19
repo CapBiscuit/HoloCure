@@ -13,10 +13,13 @@ public class Attack_Item extends Actor
     int cooldown_at_the_moment = 0;
     int damage = 100;
     double size = 2;
+    int amount_atm = 0;
+    int burst_cd = 0;
     int amount = 0;
     int index = -1;
     int hit_limit = 0;
     int type = 0;
+    boolean is_shooting = false;
     
     Attack_Item(int ind) {
         index = ind;
@@ -27,6 +30,7 @@ public class Attack_Item extends Actor
                 amount = 1;
                 cooldown_maximum = 90;
                 size *= 1;
+                break;
             }
             case 1: {
                 type = 2;
@@ -34,6 +38,8 @@ public class Attack_Item extends Actor
                 amount = 3;
                 cooldown_maximum = 20;
                 hit_limit = 1;
+                burst_cd = 10;
+                break;
             }
             case 2: {
                 type = 1;
@@ -41,6 +47,7 @@ public class Attack_Item extends Actor
                 amount = 1;
                 cooldown_maximum = 70;
                 size *= 1.4;
+                break;
             }
             case 3: {
                 type = 1;
@@ -48,6 +55,7 @@ public class Attack_Item extends Actor
                 amount = 1;
                 cooldown_maximum = 100;
                 size *= 1.5;
+                break;
             }
             case 4: {
                 type = 1;
@@ -55,6 +63,7 @@ public class Attack_Item extends Actor
                 cooldown_maximum = 70;
                 amount = 1;
                 size *= 0.8;
+                break;
             }
             case 5: {
                 type = 1;
@@ -62,6 +71,7 @@ public class Attack_Item extends Actor
                 cooldown_maximum = 90;
                 amount = 1;
                 size *= 1.5;
+                break;
             }
         }
     }
@@ -70,7 +80,8 @@ public class Attack_Item extends Actor
     public void act()
     {
         if (!stop) {
-            if (type == 1) melee();        
+            if (type == 1) melee();      
+            else shoot();
         }
     }    
     
@@ -89,5 +100,31 @@ public class Attack_Item extends Actor
             getWorld().addObject(attack, player.getX() + offsetX, player.getY() + offsetY);
             cooldown_at_the_moment = cooldown_maximum;
         }
+    }
+    
+    
+    public void shoot() {
+        MouseInfo mouse = Greenfoot.getMouseInfo();
+        Player player = getWorld().getObjects(Player.class).get(0);
+        if (mouse == null) return; // no mouse info available
+        int angleDeg = (int) Math.toDegrees(Math.atan2(mouse.getY() - player.getY(), mouse.getX() - player.getX())); //Rotation
+        if (cooldown_at_the_moment == 0 && !is_shooting) {
+            amount_atm = amount;
+            is_shooting = true;
+            cooldown_at_the_moment = burst_cd;
+        }
+        else if (amount_atm != 0 && cooldown_at_the_moment == 0 && is_shooting) {
+            Projectile projectile = new Projectile(angleDeg, damage, hit_limit);
+            projectile.worldX = player.worldX;
+            projectile.worldY = player.worldY;
+            getWorld().addObject(projectile, 0, 0);
+            cooldown_at_the_moment = burst_cd;
+            amount_atm--;
+        }
+        else if (amount_atm == 0 && is_shooting) {
+            is_shooting = false; 
+            cooldown_at_the_moment = cooldown_maximum;
+        }
+        cooldown_at_the_moment--;
     }
 }

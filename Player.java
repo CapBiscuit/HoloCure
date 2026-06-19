@@ -78,23 +78,6 @@ public class Player extends Actor
      *                                                                      at 50th frame
      */
     
-    public void shoot() {
-        MouseInfo mouse = Greenfoot.getMouseInfo();
-        if (mouse == null) return; // no mouse info available
-        int angleDeg = (int) Math.toDegrees(Math.atan2(mouse.getY() - getY(), mouse.getX() - getX())); //Rotation
-        
-        if (BURST >= BurstCooldown && WeaponCooldown == 10) {
-            Projectile projectile = new Projectile(angleDeg);
-            projectile.worldX = worldX;
-            projectile.worldY = worldY;
-            getWorld().addObject(projectile, 0, 0);
-        }
-        if (WeaponCooldown == 10) WeaponCooldown = 0;
-        if (BURST == 70) BURST = 0;
-        WeaponCooldown++;
-        BURST++;
-    }
-    
     /**
      * Creates Attack that deals damage to Enemies.
      * A little buggy, but whatever...
