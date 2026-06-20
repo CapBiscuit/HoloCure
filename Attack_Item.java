@@ -39,6 +39,7 @@ public class Attack_Item extends Actor
                 cooldown_maximum = 20;
                 hit_limit = 1;
                 burst_cd = 10;
+                setImage(new GreenfootImage("Weapons/Amelia.png"));
                 break;
             }
             case 2: {

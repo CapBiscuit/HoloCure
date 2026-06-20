@@ -33,7 +33,7 @@ public class Game extends World
         addObject(new Crosshair(),0,0);
         setPaintOrder(TimeCountdown.class,DefeatedCounter.class,UI.class,EXPbar.class,EXP_full.class,EXP_empty.class,HPbar.class,Pause.class,
                       Pointer.class, Crosshair.class, Enemy.class);
-        
+        addObject(new AttackItemBar(), 320, 115);
     }
 
     /**
