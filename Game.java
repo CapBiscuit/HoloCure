@@ -25,13 +25,10 @@ public class Game extends World
         super(1280, 720, 1); 
         addObject(new TimeCountdown(), getWidth()/2, 50);
         addObject(new DefeatedCounter(), getWidth()/2 + 425, 50);
-        addObject(new EXP_empty(), 640, 14);
-        addObject(new EXP_full(), 640, 14);
-        addObject(new EXPbar(),640,14);
         addObject(new HPbar(),300,50);
         addObject(new Pointer(),getWidth()/2,getHeight()/2);
         addObject(new Crosshair(),0,0);
-        setPaintOrder(TimeCountdown.class,DefeatedCounter.class,UI.class,EXPbar.class,EXP_full.class,EXP_empty.class,HPbar.class,Pause.class,
+        setPaintOrder(TimeCountdown.class,DefeatedCounter.class,UI.class,EXPBAR.class,HPbar.class,Pause.class,
                       Pointer.class, Crosshair.class, Enemy.class);
         addObject(new AttackItemBar(), 320, 115);
     }
