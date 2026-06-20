@@ -39,7 +39,9 @@ public class Attack_Item extends Actor
                 cooldown_maximum = 20;
                 hit_limit = 1;
                 burst_cd = 10;
-                setImage(new GreenfootImage("Weapons/Amelia.png"));
+                GreenfootImage weapon_icon = new GreenfootImage("Weapons/Amelia.png");
+                weapon_icon.scale(40, 40);
+                setImage(weapon_icon);
                 break;
             }
             case 2: {
@@ -48,6 +50,9 @@ public class Attack_Item extends Actor
                 amount = 1;
                 cooldown_maximum = 70;
                 size *= 1.4;
+                GreenfootImage weapon_icon = new GreenfootImage("Weapons/Gawr.png");
+                weapon_icon.scale(40, 40);
+                setImage(weapon_icon);
                 break;
             }
             case 3: {

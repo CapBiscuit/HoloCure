@@ -60,15 +60,17 @@ public class Attack extends Actor
     public void act()
     {
         if (!stop) {
-            Enemy enemy = (Enemy) getOneIntersectingObject(Enemy.class);
-            boolean fl = false;
-            for (int i = 0; i < enemies_hit.size(); i++) {
-                if (enemies_hit.get(i) == enemy) fl = true;
-            } 
-            if (!fl && enemy != null) {
-                enemy.hit(damage);
-                enemies_hit.add(enemy);
-            };
+            ArrayList<Enemy> enemies = (ArrayList<Enemy>)getIntersectingObjects(Enemy.class);
+            for (int j = 0; j < enemies.size(); j++) {
+                boolean fl = false;
+                for (int i = 0; i < enemies_hit.size(); i++) {
+                    if (enemies_hit.get(i) == enemies.get(j)) fl = true;
+                } 
+                if (!fl) {
+                    enemies.get(j).hit(damage);
+                    enemies_hit.add(enemies.get(j));
+                };
+            }
             
             animationDelay--;
             if (animationDelay <= 0) {

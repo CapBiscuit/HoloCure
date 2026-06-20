@@ -14,6 +14,6 @@ public class AttackItemBar extends Actor
      */
     public void act()
     {
-        // Add your action code here.
+        setImage(getImage());
     }
 }

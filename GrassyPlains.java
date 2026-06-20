@@ -16,7 +16,7 @@ public class GrassyPlains extends Game
         
         player = new Player(charName, character);
         addObject(player, getWidth()/2, getHeight()/2);
-        addObject(player.attacks.get(0), 1, 1);
+        addObject(player.attacks.get(0), 145, 115);
     }
     
     public void spawn()

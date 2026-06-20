@@ -148,18 +148,18 @@ public class Menu extends World
     {
         if (menu == "main") {
             if (!keyCooldown && (Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up")) && selectedMenu != 1) 
-            {selectedMenu--; keyCooldown = true;Greenfoot.playSound("menu/select.wav");}
+            {selectedMenu--; keyCooldown = true;Greenfoot.playSound("menu/select.mp3");}
             if (!keyCooldown && (Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down")) && selectedMenu != 4) 
-            {selectedMenu++; keyCooldown = true;Greenfoot.playSound("menu/select.wav");}
+            {selectedMenu++; keyCooldown = true;Greenfoot.playSound("menu/select.mp3");}
             
             setBackground(menuBackgrounds[selectedMenu-1]);
             
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter")) && selectedMenu == 1) 
-            {Greenfoot.playSound("menu/confirm.wav");showCharacterSelection(); standOffOn(); keyCooldown = true;}
+            {Greenfoot.playSound("menu/confirm.mp3");showCharacterSelection(); standOffOn(); keyCooldown = true;}
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter")) && selectedMenu == 2) 
-            {Greenfoot.playSound("menu/confirm.wav");setBackground(tutorialBackground); menu = "tutorial"; keyCooldown = true;}
+            {Greenfoot.playSound("menu/confirm.mp3");setBackground(tutorialBackground); menu = "tutorial"; keyCooldown = true;}
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter")) && selectedMenu == 3) 
-            {Greenfoot.playSound("menu/confirm.wav");standOffOn(); showAuthors();  keyCooldown = true;}
+            {Greenfoot.playSound("menu/confirm.mp3");standOffOn(); showAuthors();  keyCooldown = true;}
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter")) && selectedMenu == 4) 
             {music.pause(); Greenfoot.stop();}
         }
@@ -179,28 +179,28 @@ public class Menu extends World
             setBackground(authorsBackgrounds[selectedAuthor-1]);
             
             if (!keyCooldown && (Greenfoot.isKeyDown("shift") || Greenfoot.isKeyDown("escape"))) {
-                Greenfoot.playSound("menu/exit.wav"); authorOffOn(); showMainMenu(); keyCooldown = true;}
+                Greenfoot.playSound("menu/exit.mp3"); authorOffOn(); showMainMenu(); keyCooldown = true;}
             if (!keyCooldown && (Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left"))) {
-                selectedAuthor--; keyCooldown = true; Greenfoot.playSound("menu/select.wav");}
+                selectedAuthor--; keyCooldown = true; Greenfoot.playSound("menu/select.mp3");}
             if (!keyCooldown && (Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right"))) {
-                selectedAuthor++; keyCooldown = true; Greenfoot.playSound("menu/select.wav");}
+                selectedAuthor++; keyCooldown = true; Greenfoot.playSound("menu/select.mp3");}
             if (selectedAuthor == 0) selectedAuthor = 4; 
             if (selectedAuthor == 5) selectedAuthor = 1; 
         }
         
         if (menu == "tutorial") {
             if (!keyCooldown && (Greenfoot.isKeyDown("shift") || Greenfoot.isKeyDown("escape"))) {
-                Greenfoot.playSound("menu/exit.wav");setBackground(menuBackgrounds[selectedMenu-1]); menu = "main"; keyCooldown = true;}
+                Greenfoot.playSound("menu/exit.mp3");setBackground(menuBackgrounds[selectedMenu-1]); menu = "main"; keyCooldown = true;}
         }
         
         if (menu == "char") {
             //menu movements
             if (!keyCooldown && (Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left"))) {
-                selectedCharacter--; keyCooldown = true; Greenfoot.playSound("menu/select_char.wav");}
+                selectedCharacter--; keyCooldown = true; Greenfoot.playSound("menu/select_char.mp3");}
             if (!keyCooldown && (Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right"))) {
-                selectedCharacter++; keyCooldown = true; Greenfoot.playSound("menu/select_char.wav");}
+                selectedCharacter++; keyCooldown = true; Greenfoot.playSound("menu/select_char.mp3");}
             if (!keyCooldown && (Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down"))) {
-                selectedCharacter+=5; keyCooldown = true; Greenfoot.playSound("menu/select_char.wav");}
+                selectedCharacter+=5; keyCooldown = true; Greenfoot.playSound("menu/select_char.mp3");}
             
             //handle of out of bound values 
             if (selectedCharacter <= 0) selectedCharacter = 9; 
@@ -235,9 +235,9 @@ public class Menu extends World
             
             //exit and confirmation
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter"))) {
-                Greenfoot.playSound("menu/confirm.wav");showStageSelection(); mannequinOffOn(); keyCooldown = true;}
+                Greenfoot.playSound("menu/confirm.mp3");showStageSelection(); mannequinOffOn(); keyCooldown = true;}
             if (!keyCooldown && (Greenfoot.isKeyDown("shift") || Greenfoot.isKeyDown("escape"))) {
-                Greenfoot.playSound("menu/exit.wav");showMainMenu(); mannequinOffOn(); keyCooldown = true;}
+                Greenfoot.playSound("menu/exit.mp3");showMainMenu(); mannequinOffOn(); keyCooldown = true;}
         }
         
         if (menu == "stage") {
@@ -247,9 +247,9 @@ public class Menu extends World
             if (selectedStage == 4) selectedStage = 1; 
             setBackground(stageBackgrounds[selectedStage-1]);
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter"))) {
-                Greenfoot.playSound("menu/confirm.wav");switchToGameStage(); keyCooldown = true;}
+                Greenfoot.playSound("menu/confirm.mp3");switchToGameStage(); keyCooldown = true;}
             if (!keyCooldown && (Greenfoot.isKeyDown("shift") || Greenfoot.isKeyDown("escape"))) {
-                Greenfoot.playSound("menu/exit.wav");showCharacterSelection(); keyCooldown = true;}
+                Greenfoot.playSound("menu/exit.mp3");showCharacterSelection(); keyCooldown = true;}
         }
         if (keyCooldown && !(Greenfoot.isKeyDown("shift") || Greenfoot.isKeyDown("escape") ||
                              Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter") ||
