@@ -116,13 +116,34 @@ public class Player extends Actor
         
         worldX += buttonPressed >= 2 ? xSpeed / Math.sqrt(2) : xSpeed;
         worldY += buttonPressed >= 2 ? ySpeed / Math.sqrt(2) : ySpeed;
-    }
-
-    public void death()
+        Game game = (Game)getWorld();
+        if (game != null) {
+            game.wrap_object(this); 
+        }
+        
+        for (Prop p : game.getObjects(Prop.class)) {
+        if (p.isSolid() && intersectsProp(p)) {
+            worldX -= buttonPressed >= 2 ? xSpeed / Math.sqrt(2) : xSpeed;
+            worldY -= buttonPressed >= 2 ? ySpeed / Math.sqrt(2) : ySpeed;
+            game.wrap_object(this);
+            break;
+            }
+        }
+        }
+        
+        private boolean intersectsProp(Prop p)
     {
-        if (HP == 0) ((Game) getWorld()).endgame();
-        if (INVINCIBILITY != 0) INVINCIBILITY--;
+        double dx = Math.abs(worldX - p.worldX);
+        double dy = Math.abs(worldY - p.worldY);
+        return dx < (getImage().getWidth()/2 + p.getImage().getWidth()/2) &&
+               dy < (getImage().getHeight()/2 + p.getImage().getHeight()/2);
     }
+    
+        public void death()
+        {
+            if (HP == 0) ((Game) getWorld()).endgame();
+            if (INVINCIBILITY != 0) INVINCIBILITY--;
+        }
     
     public void getDamaged() {
         if (HP != 0 && INVINCIBILITY == 0) {

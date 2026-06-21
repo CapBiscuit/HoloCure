@@ -8,6 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 public class Game extends World
 {
+    protected int WORLD_WIDTH;
+    protected int WORLD_HEIGHT;
+    
     Player player;
     GreenfootSound music;
     
@@ -29,43 +32,52 @@ public class Game extends World
         addObject(new Pointer(),getWidth()/2,getHeight()/2);
         addObject(new Crosshair(),0,0);
         setPaintOrder(TimeCountdown.class,DefeatedCounter.class,UI.class,EXPBAR.class,HPbar.class,Pause.class,
-                      Pointer.class, Crosshair.class, Enemy.class);
+                      Pointer.class, Crosshair.class, Enemy.class, Prop.class);
         addObject(new AttackItemBar(), 320, 115);
         addObject(new EXPBAR(), 1, 1);
     }
 
-    /**
-     * @param enemy - put a type of enemy to spawn it
-     * @param x,y - randomize location to spawn enemy within borders
-     */
-
-    public void spawn(Enemy enemy)
+    public void spawn(Enemy enemy) //o_0
     {
         double angle = Math.toRadians(Greenfoot.getRandomNumber(360));
-        
-        int spawnX = (int)(player.worldX + Math.cos(angle) * 720);
-        int spawnY = (int)(player.worldY + Math.sin(angle) * 720);
-
-        
-        int x = (Greenfoot.getRandomNumber(2) == 0)
-            ? (int)(player.worldX + Greenfoot.getRandomNumber(200)+100)
-            : (int)(player.worldX - Greenfoot.getRandomNumber(200)-100);
-    
-        int y = (Greenfoot.getRandomNumber(2) == 0)
-            ? (int)(player.worldY + Greenfoot.getRandomNumber(200)+100)
-            : (int)(player.worldY - Greenfoot.getRandomNumber(200)-100);
-    
-        enemy.worldX = spawnX;
-        enemy.worldY = spawnY;
+        double distance = 600 + Greenfoot.getRandomNumber(400);
+        enemy.worldX = player.worldX + Math.cos(angle) * distance;
+        enemy.worldY = player.worldY + Math.sin(angle) * distance;
+        wrap_object(enemy);
         addObject(enemy, 0, 0);
     }
+   
+    public void spawn_lokal(){} //под локальную реализацию
     
     public void endgame() {
         music.stop();
         Greenfoot.setWorld(new GameOver());
     }
     
-    public void spawn(){}
+    public double wrapX(double x) {
+        while (x >= WORLD_WIDTH)  x -= WORLD_WIDTH;
+        while (x < 0)             x += WORLD_WIDTH;
+        return x;
+    }
+    
+    public double wrapY(double y) {
+        while (y >= WORLD_HEIGHT) y -= WORLD_HEIGHT;
+        while (y < 0)             y += WORLD_HEIGHT;
+        return y;
+    }
+    
+    public void wrap_object(Actor obj) {
+        if (obj == null) return;
+        
+        if (obj instanceof World_objects wo) {
+            wo.worldX = wrapX(wo.worldX);
+            wo.worldY = wrapY(wo.worldY);
+        }
+        else if (obj instanceof Player p) {
+            p.worldX = wrapX(p.worldX);
+            p.worldY = wrapY(p.worldY);
+        }
+    }
     
     public void act()
     {
@@ -78,21 +90,21 @@ public class Game extends World
             if (PAUSE) addObject(new Pause(), 640, 360); else removeObject(getObjects(Pause.class).get(0));
         }
         
-        if (!PAUSE) { spawnTimer--; spawn(); resume(); } else stop();
+        if (!PAUSE) { spawnTimer--; spawn_lokal(); resume(); } else stop();
         
         if (PAUSE) {
             if (!keyCooldown && (Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up")) && selectedPause != 1) 
-            {selectedPause--; keyCooldown = true; Greenfoot.playSound("menu/select.wav");}
+            {selectedPause--; keyCooldown = true; Greenfoot.playSound("menu/select.mp3");}
             if (!keyCooldown && (Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down")) && selectedPause != 3) 
-            {selectedPause++; keyCooldown = true; Greenfoot.playSound("menu/select.wav");}
+            {selectedPause++; keyCooldown = true; Greenfoot.playSound("menu/select.mp3");}
             Pause.selectedPause = selectedPause;
             
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter")) && selectedPause == 1) 
-            {removeObject(getObjects(Pause.class).get(0)); PAUSE = false; keyCooldown = true; Greenfoot.playSound("menu/confirm.wav");}
+            {removeObject(getObjects(Pause.class).get(0)); PAUSE = false; keyCooldown = true; Greenfoot.playSound("menu/confirm.mp3");}
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter")) && selectedPause == 2) 
-            {selectedPause = 5; keyCooldown = true; Greenfoot.playSound("menu/confirm.wav");}
+            {selectedPause = 5; keyCooldown = true; Greenfoot.playSound("menu/confirm.mp3");}
             if (!keyCooldown && (Greenfoot.isKeyDown("escape") || Greenfoot.isKeyDown("shift")) && selectedPause == 5) 
-            {selectedPause = 2; keyCooldown = true; Greenfoot.playSound("menu/confirm.wav");}
+            {selectedPause = 2; keyCooldown = true; Greenfoot.playSound("menu/confirm.mp3");}
         }
         
         if (keyCooldown && !(Greenfoot.isKeyDown("escape") || Greenfoot.isKeyDown("shift") || 
@@ -103,13 +115,25 @@ public class Game extends World
     
     public void update_camera()
     {
+        double camX = player.worldX;
+        double camY = player.worldY;
+        player.setLocation(getWidth()/2, getHeight()/2);
+        
         for (World_objects wObj : getObjects(World_objects.class))
         {
-            int screenX = (int)(wObj.worldX - player.worldX + getWidth()/2);
-            int screenY = (int)(wObj.worldY - player.worldY + getHeight()/2);
+            double dx = wObj.worldX - camX;
+            double dy = wObj.worldY - camY;
+            
+            if (dx > WORLD_WIDTH / 2.0)   dx -= WORLD_WIDTH;
+            else if (dx < -WORLD_WIDTH / 2.0) dx += WORLD_WIDTH;
+            
+            if (dy > WORLD_HEIGHT / 2.0)  dy -= WORLD_HEIGHT;
+            else if (dy < -WORLD_HEIGHT / 2.0) dy += WORLD_HEIGHT;
+            int screenX = (int)(dx + getWidth() / 2);
+            int screenY = (int)(dy + getHeight() / 2);
+            
             wObj.setLocation(screenX, screenY);
         }
-        player.setLocation(getWidth()/2, getHeight()/2);
     }
     
     public void draw_background()

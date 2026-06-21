@@ -1,9 +1,35 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;
 
-/**
- * TODO
- */
 public class Prop extends World_objects
 {
+    private boolean isSolid = false; 
+    private String type;
+    public GreenfootImage img;
 
+    public Prop(String imageName, double worldX, double worldY, boolean solid)
+    {
+        this.type = imageName;
+        this.isSolid = solid;
+        
+        img = new GreenfootImage("stages/grassyplains/props/" + imageName);
+        img.scale((int)(img.getWidth() * 1.75), (int)(img.getHeight() * 1.75));
+        setImage(img);
+        
+        this.worldX = worldX;
+        this.worldY = worldY;
+    }
+
+    public Prop(String imageName, double worldX, double worldY)
+    {
+        this(imageName, worldX, worldY, false);
+    }
+
+    public boolean isSolid(){return isSolid;}
+
+    public void act()
+    {
+        if (getX() < 5 || getX() > 1275 || getY() < 5 || getY() > 715) //o_0// было бы непло считать эти граници относительно спрайтов мобов
+        { setImage(limpid); return; } 
+        setImage(img);
+    }
 }

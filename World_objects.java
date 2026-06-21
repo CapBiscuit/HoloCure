@@ -5,4 +5,5 @@ public class World_objects extends Actor//o_0
 {
     public double worldX;
     public double worldY;
+    public GreenfootImage limpid = new GreenfootImage("limpid.png");
 }

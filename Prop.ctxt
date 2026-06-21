@@ -1,4 +1,11 @@
 #BlueJ class context
 comment0.target=Prop
-comment0.text=\r\n\ TODO\r\n
-numComments=1
+comment1.params=imageName\ worldX\ worldY\ solid
+comment1.target=Prop(java.lang.String,\ double,\ double,\ boolean)
+comment2.params=imageName\ worldX\ worldY
+comment2.target=Prop(java.lang.String,\ double,\ double)
+comment3.params=
+comment3.target=boolean\ isSolid()
+comment4.params=
+comment4.target=void\ act()
+numComments=5

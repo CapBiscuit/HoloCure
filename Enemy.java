@@ -3,7 +3,6 @@ import greenfoot.*;
 public class Enemy extends World_objects
 {
     GreenfootImage[] frames = new GreenfootImage[3];
-    GreenfootImage limpid = new GreenfootImage("limpid.png");//o_0
     
     int frameIndex = 0;
     int animDelay = 0;
@@ -26,23 +25,26 @@ public class Enemy extends World_objects
     
     public void moveTowardsPlayer()
     {
-        Player player = (Player)getWorld().getObjects(Player.class).get(0);
-    
-        double distanceX = worldX - player.worldX;
-        double distanceY = worldY - player.worldY;
-        double distance_vector = Math.sqrt(distanceX*distanceX+distanceY*distanceY);
-
-        if (distanceX > 0)  facingRight = false;
-        else facingRight = true;
+        Game game = (Game)getWorld();
+        Player player = (Player)game.getObjects(Player.class).get(0);
+        double dx = worldX - player.worldX;
+        double dy = worldY - player.worldY;
         
-        worldX -= distanceX / distance_vector * WALK_SPEED;
-        worldY -= distanceY / distance_vector * WALK_SPEED;
+        if (dx > game.WORLD_WIDTH / 2.0)   dx -= game.WORLD_WIDTH;
+        else if (dx < -game.WORLD_WIDTH / 2.0) dx += game.WORLD_WIDTH;
         
-        if (distance_vector > 2500){
-            worldX = 2 * player.worldX - worldX;
-            worldY = 2 * player.worldY - worldY;
-            return;
-        }
+        if (dy > game.WORLD_HEIGHT / 2.0)  dy -= game.WORLD_HEIGHT;
+        else if (dy < -game.WORLD_HEIGHT / 2.0) dy += game.WORLD_HEIGHT;
+        
+        double distance = Math.sqrt(dx*dx + dy*dy);
+        
+        if (distance < 5) return;
+        
+       
+        facingRight = (dx < 0);
+        worldX -= (dx / distance) * WALK_SPEED;
+        worldY -= (dy / distance) * WALK_SPEED;
+        game.wrap_object(this);
     }
 
     public void animate()
@@ -72,10 +74,10 @@ public class Enemy extends World_objects
     
     public void death()
     {
-        //getWorld().addObject(new EXP(), getX(), getY());
         EXP exp = new EXP();
         exp.worldX = worldX;
         exp.worldY = worldY;
+        ((Game)getWorld()).wrap_object(exp);
         getWorld().addObject(exp, 0, 0);
         
         DefeatedCounter counter = (DefeatedCounter) getWorld().getObjects(DefeatedCounter.class).get(0);

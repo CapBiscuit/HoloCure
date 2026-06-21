@@ -38,7 +38,7 @@ public class Projectile extends World_objects
             for (int i = 0; i < hit_enemies.size(); i++) {
                 if (hit_enemies.get(i) == enemy) fl = true;
             }
-            if (enemy != null && !fl) {
+            if (enemy != null && !fl && getWorld() != null) {
                 hit_enemies.add(enemy);
                 enemy.hit(damage);
                 getWorld().removeObject(this);
