@@ -30,5 +30,7 @@ public class EXPBAR extends Actor
         
         setImage(EXPBAR);
         frame = frame >= 61 ? 0 : frame + 1;
+        //пусть так
+    
     }
 }
