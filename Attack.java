@@ -25,31 +25,31 @@ public class Attack extends Actor
                 break;
             case 2:
                 frames = new GreenfootImage[4];
-                frames = SpriteSheetHandler.splitSheetVertical(new GreenfootImage("characters/gura/attack.png"), 1,4,0,4,3);
+                frames = SpriteSheetHandler.splitSheetVertical(new GreenfootImage("characters/gura/attack.png"), 1,4,0,4,attack_size);
                 break;
             case 3: 
                 frames = new GreenfootImage[12];
-                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/ina/attack.png"), 12,1,0,12,3);
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/ina/attack.png"), 12,1,0,12,attack_size);
                 break;
             case 4: 
                 frames = new GreenfootImage[8];
-                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/kiara/attack.png"), 8,1,0,8,3);
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/kiara/attack.png"), 8,1,0,8,attack_size);
                 break;
             case 5:
                 frames = new GreenfootImage[10];
-                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/mori/attack.png"), 10,1,0,10,3);
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/mori/attack.png"), 10,1,0,10,attack_size);
                 break;
             case 6:
                 frames = new GreenfootImage[6];
-                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/filian/attack.png"), 6,1,0,6,3);
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/filian/attack.png"), 6,1,0,6,attack_size);
                 break;
             case 7:
                 frames = new GreenfootImage[6];
-                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/neuro/attack.png"), 6,1,0,6,3);
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/neuro/attack.png"), 6,1,0,6,attack_size);
                 break;
             case 8:
                 frames = new GreenfootImage[6];
-                frames = SpriteSheetHandler.splitSheetVertical(new GreenfootImage("characters/cecilia/attack.png"), 1,6,0,6,3);
+                frames = SpriteSheetHandler.splitSheetVertical(new GreenfootImage("characters/cecilia/attack.png"), 1,6,0,6,attack_size);
                 break;
         }
         damage = dmg;

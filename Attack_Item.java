@@ -20,7 +20,7 @@ public class Attack_Item extends Actor
         switch(index) {
             case 0: {
                 type = 1;
-                damage = 100;                
+                damage = 10;                
                 amount = 1;
                 cooldown_maximum = 90;
                 size *= 1;
@@ -28,7 +28,7 @@ public class Attack_Item extends Actor
             }
             case 1: {
                 type = 2;
-                damage = 100;
+                damage = 10;
                 amount = 3;
                 cooldown_maximum = 20;
                 hit_limit = 1;
@@ -40,7 +40,7 @@ public class Attack_Item extends Actor
             }
             case 2: {
                 type = 1;
-                damage = 160;
+                damage = 16;
                 amount = 1;
                 cooldown_maximum = 70;
                 size *= 1.4;
@@ -51,26 +51,35 @@ public class Attack_Item extends Actor
             }
             case 3: {
                 type = 1;
-                damage = 140;
+                damage = 14;
                 amount = 1;
                 cooldown_maximum = 100;
                 size *= 1.5;
+                GreenfootImage weapon_icon = new GreenfootImage("Weapons/Ina.png");
+                weapon_icon.scale(40, 40);
+                setImage(weapon_icon);
                 break;
             }
             case 4: {
                 type = 1;
-                damage = 130;
+                damage = 13;
                 cooldown_maximum = 70;
                 amount = 1;
-                size *= 0.8;
+                size *= 0.6;
+                GreenfootImage weapon_icon = new GreenfootImage("Weapons/Kiara.png");
+                weapon_icon.scale(40, 40);
+                setImage(weapon_icon);
                 break;
             }
             case 5: {
                 type = 1;
-                damage = 120;
+                damage = 12;
                 cooldown_maximum = 90;
                 amount = 1;
                 size *= 1.5;
+                GreenfootImage weapon_icon = new GreenfootImage("Weapons/Mori.png");
+                weapon_icon.scale(40, 40);
+                setImage(weapon_icon);
                 break;
             }
         }
