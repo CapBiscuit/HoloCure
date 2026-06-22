@@ -6,12 +6,13 @@ public class Prop extends World_objects
     private String type;
     public GreenfootImage img;
 
-    public Prop(String imageName, double worldX, double worldY, boolean solid)
+    public Prop(String imageName, String pole, double worldX, double worldY, boolean solid)
     {
         this.type = imageName;
+        this.type = pole;
         this.isSolid = solid;
         
-        img = new GreenfootImage("stages/grassyplains/props/" + imageName);
+        img = new GreenfootImage("stages/" + pole + "/props/" + imageName);
         img.scale((int)(img.getWidth() * 1.75), (int)(img.getHeight() * 1.75));
         setImage(img);
         
@@ -19,9 +20,9 @@ public class Prop extends World_objects
         this.worldY = worldY;
     }
 
-    public Prop(String imageName, double worldX, double worldY)
+    public Prop(String imageName, String pole, double worldX, double worldY)
     {
-        this(imageName, worldX, worldY, false);
+        this(imageName, pole, worldX, worldY, false);
     }
 
     public boolean isSolid(){return isSolid;}

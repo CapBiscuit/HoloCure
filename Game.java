@@ -117,6 +117,7 @@ public class Game extends World
     {
         double camX = player.worldX;
         double camY = player.worldY;
+        
         player.setLocation(getWidth()/2, getHeight()/2);
         
         for (World_objects wObj : getObjects(World_objects.class))
@@ -137,30 +138,33 @@ public class Game extends World
     }
     
     public void draw_background()
+{
+    GreenfootImage canvas = new GreenfootImage(getWidth(), getHeight());
+
+    int camX = (int) player.worldX;
+    int camY = (int) player.worldY;
+
+    int tileW = bg.getWidth();
+    int tileH = bg.getHeight();
+
+    int offsetX = camX % tileW;
+    int offsetY = camY % tileH;
+
+    if (offsetX < 0) offsetX += tileW;
+    if (offsetY < 0) offsetY += tileH;
+
+    int startX = (getWidth() / 2) % tileW - offsetX;
+    int startY = (getHeight() / 2) % tileH - offsetY;
+
+    for (int x = startX - tileW; x < getWidth() + tileW; x += tileW)
     {
-        GreenfootImage canvas = new GreenfootImage(getWidth(), getHeight());
-    
-        int camX = (int)player.worldX;
-        int camY = (int)player.worldY;
-    
-        int tileW = bg.getWidth();
-        int tileH = bg.getHeight();
-    
-        int offsetX = camX % tileW;
-        int offsetY = camY % tileH;
-    
-        if (offsetX < 0) offsetX += tileW;
-        if (offsetY < 0) offsetY += tileH;
-    
-        for (int x = -tileW; x < getWidth() + tileW; x += tileW)
+        for (int y = startY - tileH; y < getHeight() + tileH; y += tileH)
         {
-            for (int y = -tileH; y < getHeight() + tileH; y += tileH)
-            {
-                canvas.drawImage(bg, x - offsetX, y - offsetY);
-            }
+            canvas.drawImage(bg, x, y);
         }
-        setBackground(canvas);
     }
+    setBackground(canvas);
+}
     
     public void stop() {
         for (Enemy enemy : getObjects(Enemy.class)) enemy.stop                          = true;

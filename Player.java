@@ -60,6 +60,7 @@ public class Player extends Actor
             death();
             update();
         }
+        
     }
     
     /**
@@ -114,9 +115,43 @@ public class Player extends Actor
             STATUS = "stand";
         } else STATUS = "walk";
         
-        worldX += buttonPressed >= 2 ? xSpeed / Math.sqrt(2) : xSpeed;
-        worldY += buttonPressed >= 2 ? ySpeed / Math.sqrt(2) : ySpeed;
+        double newX = worldX + (buttonPressed >= 2 ? xSpeed / Math.sqrt(2) : xSpeed);
+        double newY = worldY + (buttonPressed >= 2 ? ySpeed / Math.sqrt(2) : ySpeed);
         Game game = (Game)getWorld();
+        
+        
+        if (game == null) return;
+        if (game instanceof HoloOffice) {
+            if (newY < 995)  newY = 995;   
+            if (newY > 2025) newY = 2025;  
+        }
+        
+        double mn = 2;
+        if (game instanceof HalloweenCastle) {
+        
+            if (newX < 233 * mn)  newX = 233 * mn;
+            if (newX > 1766 * mn) newX = 1766 * mn;
+        
+            if (newY < 520 * mn)  newY = 520 * mn;
+            if (newY > 1535 * mn) newY = 1535 * mn;
+        
+            if (newX < 745 * mn && newY < 765 * mn) {
+                if (worldX >= 745 * mn)
+                    newX = 745 * mn;
+                else
+                    newY = 765 * mn;
+            }
+        
+            if (newX > 1256 * mn && newY < 765 * mn) {
+                if (worldX <= 1256 * mn)
+                    newX = 1256 * mn;
+                else
+                    newY = 765 * mn;
+            }
+        }
+    
+        worldX = newX;
+        worldY = newY;
         if (game != null) {
             game.wrap_object(this); 
         }
@@ -129,6 +164,7 @@ public class Player extends Actor
             break;
             }
         }
+        
         }
         
         private boolean intersectsProp(Prop p)

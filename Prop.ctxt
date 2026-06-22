@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=Prop
-comment1.params=imageName\ worldX\ worldY\ solid
-comment1.target=Prop(java.lang.String,\ double,\ double,\ boolean)
-comment2.params=imageName\ worldX\ worldY
-comment2.target=Prop(java.lang.String,\ double,\ double)
+comment1.params=imageName\ pole\ worldX\ worldY\ solid
+comment1.target=Prop(java.lang.String,\ java.lang.String,\ double,\ double,\ boolean)
+comment2.params=imageName\ pole\ worldX\ worldY
+comment2.target=Prop(java.lang.String,\ java.lang.String,\ double,\ double)
 comment3.params=
 comment3.target=boolean\ isSolid()
 comment4.params=
