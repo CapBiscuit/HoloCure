@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Attack
-comment1.params=weapon_index\ rotation\ attack_size\ dmg
-comment1.target=Attack(int,\ int,\ double,\ int)
+comment1.params=weapon_index\ rotation\ attack_size\ dmg\ level
+comment1.target=Attack(int,\ int,\ double,\ int,\ int)
 comment2.params=
 comment2.target=void\ act()
 numComments=3

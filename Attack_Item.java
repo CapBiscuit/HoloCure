@@ -15,6 +15,7 @@ public class Attack_Item extends Actor
     int type = 0;
     boolean is_shooting = false;
     int level = 1;
+    int multi_hit_angle;
     
     Attack_Item(int ind) {
         index = ind;
@@ -42,9 +43,11 @@ public class Attack_Item extends Actor
             case 2: {
                 type = 1;
                 damage = 16;
-                amount = 1;
+                amount = 3;
                 cooldown_maximum = 70;
                 size *= 1.4;
+                burst_cd = 5;
+                multi_hit_angle = 15;
                 GreenfootImage weapon_icon = new GreenfootImage("Weapons/Gawr.png");
                 weapon_icon.scale(40, 40);
                 setImage(weapon_icon);
@@ -109,7 +112,7 @@ public class Attack_Item extends Actor
                 type = 1;
                 damage = 20;
                 cooldown_maximum = 100;
-                size *= 1.2;
+                size *= 1.5;
                 amount = 1;
                 GreenfootImage weapon_icon = new GreenfootImage("Weapons/Caine.png");
                 weapon_icon.scale(40, 40);
@@ -121,7 +124,8 @@ public class Attack_Item extends Actor
                 damage = 10;
                 cooldown_maximum = 80;
                 size *= 1;
-                amount = 1;
+                amount = 2;
+                burst_cd = 15;
                 GreenfootImage weapon_icon = new GreenfootImage("Weapons/Neuro.png");
                 weapon_icon.scale(40, 40);
                 setImage(weapon_icon);
@@ -145,15 +149,24 @@ public class Attack_Item extends Actor
         MouseInfo mouse = Greenfoot.getMouseInfo();
         Player player = getWorld().getObjects(Player.class).get(0);
         if (mouse == null) return; // no mouse info available
-        int angleDeg = (int) Math.toDegrees(Math.atan2(mouse.getY() - player.getY(), mouse.getX() - player.getX())); //Rotation
+        int angleDeg = (int) Math.toDegrees(Math.atan2(mouse.getY() - player.getY(), mouse.getX() - player.getX())) + (amount_atm - (amount / 2) - 1) * multi_hit_angle; //Rotation
         
         if (cooldown_at_the_moment > 0) cooldown_at_the_moment--;
-        if (cooldown_at_the_moment == 0) {
+        else if (cooldown_at_the_moment == 0 && is_shooting && amount_atm > 0) {
             int offsetX = 90 - Math.abs(angleDeg);
             int offsetY = (Math.abs(angleDeg) <= 90) ? angleDeg : (Math.abs(angleDeg) == angleDeg) ? 180 - angleDeg : (180 + angleDeg) * -1;
-            Attack attack = new Attack(index, angleDeg, size, (int)(damage * player.ATK_MOD));
+            Attack attack = new Attack(index, angleDeg, size, (int)(damage * player.ATK_MOD), 1);
             getWorld().addObject(attack, player.getX() + offsetX, player.getY() + offsetY);
+            cooldown_at_the_moment = burst_cd;
+            amount_atm--;
+        }
+        else if (is_shooting && amount_atm == 0) {
+            is_shooting = false;
             cooldown_at_the_moment = cooldown_maximum;
+        }
+        else if (!is_shooting && cooldown_at_the_moment == 0) {
+            is_shooting = true;
+            amount_atm = amount;
         }
     }
     
@@ -169,7 +182,7 @@ public class Attack_Item extends Actor
             cooldown_at_the_moment = burst_cd;
         }
         else if (amount_atm != 0 && cooldown_at_the_moment == 0 && is_shooting) {
-            Projectile projectile = new Projectile(angleDeg, (int)(damage * player.ATK_MOD), hit_limit);
+            Projectile projectile = new Projectile(angleDeg, (int)(damage * player.ATK_MOD), hit_limit, level);
             projectile.worldX = player.worldX;
             projectile.worldY = player.worldY;
             getWorld().addObject(projectile, 0, 0);
@@ -226,7 +239,7 @@ public class Attack_Item extends Actor
                 }
                 case 8: {
                     dmg = 20;
-                    sz *= 1.2;
+                    sz *= 1.5;
                     break;
                 }
             }
@@ -235,11 +248,10 @@ public class Attack_Item extends Actor
                 Player player = getWorld().getObjects(Player.class).get(0);
                 if (mouse == null) return; // no mouse info available
                 int angleDeg = (int) Math.toDegrees(Math.atan2(mouse.getY() - player.getY(), mouse.getX() - player.getX())); //Rotation
-                Projectile projectile = new Projectile(angleDeg, (int)(damage * player.ATK_MOD * (double)(damage / 10)), hit_limit);
+                Projectile projectile = new Projectile(angleDeg, (int)(damage * player.ATK_MOD * (double)(damage / 10)), hit_limit, 1);
                 projectile.worldX = player.worldX;
                 projectile.worldY = player.worldY;
                 getWorld().addObject(projectile, 0, 0);
-                cooldown_at_the_moment = cooldown_maximum;
             }
             else {
                 MouseInfo mouse = Greenfoot.getMouseInfo();
@@ -248,10 +260,10 @@ public class Attack_Item extends Actor
                 int angleDeg = (int) Math.toDegrees(Math.atan2(mouse.getY() - player.getY(), mouse.getX() - player.getX())); //Rotation
                 int offsetX = 90 - Math.abs(angleDeg);
                 int offsetY = (Math.abs(angleDeg) <= 90) ? angleDeg : (Math.abs(angleDeg) == angleDeg) ? 180 - angleDeg : (180 + angleDeg) * -1;
-                Attack attack = new Attack(rand + 1, angleDeg, sz * size, (int)(dmg * player.ATK_MOD * (double)(damage / 10)));
+                Attack attack = new Attack(rand + 1, angleDeg, sz * size, (int)(dmg * player.ATK_MOD * (double)(damage / 10)), 1);
                 getWorld().addObject(attack, player.getX() + offsetX, player.getY() + offsetY);
-                cooldown_at_the_moment = cooldown_maximum;
             }
+            cooldown_at_the_moment = burst_cd;
             amount_atm--;
         }
         else if (amount_atm == 0 && is_shooting && cooldown_at_the_moment == 0) {
@@ -264,5 +276,49 @@ public class Attack_Item extends Actor
             amount_atm = amount;
         }
         cooldown_at_the_moment--;
+    }
+    
+    
+    public void upgrade() {
+        level++;
+        switch (index) {
+            case 1: {
+                switch (level) {
+                    case 2: {
+                        hit_limit++;
+                        amount = 5;
+                    }
+                    case 3: {
+                        damage = (int)(damage * 1.2);
+                    }
+                    case 5: {
+                        hit_limit++;
+                        cooldown_maximum = (int)(cooldown_maximum * 0.75);
+                    }
+                    case 6: {
+                        damage = (int)(damage * 1.2);
+                    }
+                }
+            }
+            case 2: {
+                switch(level) {
+                    case 2: damage = (int)(damage * 1.2);
+                    case 3: amount++;
+                    case 4: cooldown_maximum = (int)(cooldown_maximum * 0.85);
+                    case 5: damage = (int)(damage * 1.4);
+                    case 6: size = size * 1.25;
+                    case 7: amount++;
+                }
+            }
+            case 3: {
+                switch(level) {
+                    case 2: damage = (int)(damage * 1.2);
+                    case 3: size = size * 1.15;
+                    case 4: damage = (int)(damage * 1.3);
+                    case 5: cooldown_maximum = (int)(cooldown_maximum * 0.9);
+                    case 6: size = size * 1.1;
+                }
+            }
+        }
     }
 }

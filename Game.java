@@ -126,8 +126,17 @@ public class Game extends World
             selectedLevelup += selectedLevelup == 0 ? 4 : 0;
             selectedLevelup -= selectedLevelup == 5 ? 4 : 0;
             
-            if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter"))) 
-            {while (getObjects(LevelUp.class).size() != 0) removeObject(getObjects(LevelUp.class).get(0)); LEVELUP = false; keyCooldown = true; Greenfoot.playSound("menu/confirm.mp3");}
+            if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter"))) {
+                removeObject(getObjects(LevelUp.class).get(0)); 
+                if (getObjects(LevelUp.class).size() == 0) {
+                    LEVELUP = false;
+                }
+                else {
+                    LevelUp();
+                }
+                keyCooldown = true; 
+                Greenfoot.playSound("menu/confirm.mp3");
+            }
         }
         
         if (keyCooldown && !(Greenfoot.isKeyDown("escape") || Greenfoot.isKeyDown("shift") || 

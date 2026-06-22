@@ -11,13 +11,16 @@ public class Attack extends Actor
     int animationDelay = 0;
     int animationInterval = 5;
     int damage = 0;
+    int index = 0;
     
     // Stats
     int range = 150;
     ArrayList<Enemy> enemies_hit = new ArrayList<Enemy>();
+    boolean awakened_mori = false;
 
-    public Attack(int weapon_index, int rotation, double attack_size, int dmg)
+    public Attack(int weapon_index, int rotation, double attack_size, int dmg, int level)
     {
+        index = weapon_index;
         switch (weapon_index) {
             case 0: 
                 frames = new GreenfootImage[6];
@@ -38,6 +41,7 @@ public class Attack extends Actor
             case 5:
                 frames = new GreenfootImage[10];
                 frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/mori/attack.png"), 10,1,0,10,attack_size);
+                if (level == 7) awakened_mori = true;
                 break;
             case 6:
                 frames = new GreenfootImage[6];
@@ -49,7 +53,7 @@ public class Attack extends Actor
                 break;
             case 8:
                 frames = new GreenfootImage[6];
-                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/filian/attack.png"), 6,1,0,6,attack_size);
+                frames = SpriteSheetHandler.splitSheetVertical(new GreenfootImage("characters/caine/attack.png"), 1,5,0,5,attack_size);
                 break;
         }
         damage = dmg;
@@ -69,6 +73,7 @@ public class Attack extends Actor
                 if (!fl) {
                     enemies.get(j).hit(damage);
                     enemies_hit.add(enemies.get(j));
+                    if (awakened_mori) enemies.get(j).calliopeAwakening();
                 };
             }
             

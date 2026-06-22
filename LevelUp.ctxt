@@ -2,6 +2,6 @@
 comment0.target=LevelUp
 comment1.params=
 comment1.target=void\ act()
-comment2.params=
-comment2.target=void\ update()
+comment2.params=sLU
+comment2.target=void\ update(int)
 numComments=3

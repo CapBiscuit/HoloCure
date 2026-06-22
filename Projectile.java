@@ -3,15 +3,18 @@ import java.util.ArrayList;
 
 public class Projectile extends World_objects
 {
-    int speed = 5;
+    int speed = 6;
     int rotation;
     int distance = 0;
+    int DISTANCE_MAX = 100;
     boolean stop = false;
     int damage = 0;
     int hit_limit = 0;
     ArrayList<Enemy> hit_enemies = new ArrayList<Enemy>();
+    int ricochet = 0;
+    boolean awakened = false;
     
-    public Projectile(int rotation, int dmg, int h_l)
+    public Projectile(int rotation, int dmg, int h_l, int level)
     {
         hit_limit = h_l;
         damage = dmg;
@@ -21,6 +24,12 @@ public class Projectile extends World_objects
         setImage(img);
         this.rotation = rotation;
         setRotation(rotation);
+        if (level >= 4) {
+            ricochet = 2;
+        }
+        if (level == 7) {
+            awakened = true;
+        }
     }
     
     public void act()
@@ -33,15 +42,32 @@ public class Projectile extends World_objects
             distance++;
             
             boolean fl = false;
-            Enemy enemy = (Enemy) getOneIntersectingObject(Enemy.class);
-            if (isAtEdge() || distance == 100) getWorld().removeObject(this);
-            for (int i = 0; i < hit_enemies.size(); i++) {
-                if (hit_enemies.get(i) == enemy) fl = true;
-            }
-            if (enemy != null && !fl && getWorld() != null) {
-                hit_enemies.add(enemy);
-                enemy.hit(damage);
-                getWorld().removeObject(this);
+            ArrayList<Enemy> enemies = (ArrayList<Enemy>)getIntersectingObjects(Enemy.class);
+            if (isAtEdge() || distance == DISTANCE_MAX) getWorld().removeObject(this);
+            for (int i = 0; i < enemies.size(); i++) {
+                for (int j = 0; j < hit_enemies.size(); j++) {
+                    if (hit_enemies.get(j) == enemies.get(i)) fl = true;
+                }
+                
+                if (!fl && getWorld() != null) {
+                    hit_enemies.add(enemies.get(i));
+                    enemies.get(i).hit(damage);
+                    if (awakened) {
+                        enemies.get(i).ameliaAwakening();
+                    }
+                    if (hit_limit == 0) {
+                        if (ricochet == 0) {
+                            getWorld().removeObject(this);
+                            break;
+                        }
+                        else {
+                            ricochet--;
+                            rotation = Greenfoot.getRandomNumber(360);
+                        }
+                    }
+                    else hit_limit--;
+                }
+                if (getWorld() == null) break;
             }
         }   
     }

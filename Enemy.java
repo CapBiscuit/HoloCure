@@ -13,7 +13,9 @@ public class Enemy extends World_objects
     boolean stop = false;
     int HP = 200;
     int ATK = 1;
-    Attack last_hit_attack = null; 
+    int timer_amelia = 0;
+    int stored_damage = 0;
+    boolean is_KO = false;
 
     public Enemy(String enemyName) {
         updateStats(enemyName);
@@ -25,7 +27,13 @@ public class Enemy extends World_objects
             moveTowardsPlayer();
             animate();
             hitPlayer();
-            if (HP <= 0) death();
+            if (timer_amelia > 0) {
+                timer_amelia--;
+            }
+            else if (timer_amelia == 0) {
+                HP -= stored_damage;
+            }
+            if (HP <= 0 || is_KO) death();
         }
     }
     
@@ -158,7 +166,22 @@ public class Enemy extends World_objects
     
     public void hit(int damage) {
         HP -= damage;
+        if (timer_amelia > 0) {
+            stored_damage += (int)(damage * 0.15);
+        }
         Greenfoot.playSound("game/enemy_hit.mp3");
+    }
+    
+    
+    public void ameliaAwakening() {
+        if (timer_amelia == 0) timer_amelia = 120;
+    }
+    
+    
+    public void calliopeAwakening() {
+        if (Greenfoot.getRandomNumber(10) == 9) {
+            is_KO = true;
+        }
     }
     
     
