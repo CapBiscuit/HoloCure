@@ -41,15 +41,11 @@ public class Attack extends Actor
                 break;
             case 6:
                 frames = new GreenfootImage[6];
-                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/filian/attack.png"), 6,1,0,6,attack_size);
+                frames = SpriteSheetHandler.splitSheetVertical(new GreenfootImage("characters/cecilia/attack.png"), 1,6,0,6,attack_size);
                 break;
             case 7:
                 frames = new GreenfootImage[6];
-                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/neuro/attack.png"), 6,1,0,6,attack_size);
-                break;
-            case 8:
-                frames = new GreenfootImage[6];
-                frames = SpriteSheetHandler.splitSheetVertical(new GreenfootImage("characters/cecilia/attack.png"), 1,6,0,6,attack_size);
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/filian/attack.png"), 6,1,0,6,attack_size);
                 break;
         }
         damage = dmg;

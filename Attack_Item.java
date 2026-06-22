@@ -82,6 +82,31 @@ public class Attack_Item extends Actor
                 setImage(weapon_icon);
                 break;
             }
+            case 6: {
+                break;
+            }
+            case 7: {
+                type = 1;
+                damage = 5;
+                cooldown_maximum = 35;
+                size *= 0.8;
+                amount = 1;
+                GreenfootImage weapon_icon = new GreenfootImage("Weapons/Filian.png");
+                weapon_icon.scale(40, 40);
+                setImage(weapon_icon);
+                break;
+            }
+            case 8: {
+                type = 4;
+                damage = 10;
+                cooldown_maximum = 80;
+                size *= 1;
+                amount = 1;
+                GreenfootImage weapon_icon = new GreenfootImage("Weapons/Filian.png");
+                weapon_icon.scale(40, 40);
+                setImage(weapon_icon);
+                break;
+            }
         }
     }
     
