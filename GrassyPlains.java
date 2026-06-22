@@ -1,17 +1,20 @@
 import greenfoot.*;
+
+/**
+ * Stage 1
+ */
+
 public class GrassyPlains extends Game
 {
-    String pole;
     public GrassyPlains(String charName, int character)
     {
-        pole = "grassyplains";
         music = new GreenfootSound("OST/HoloCure OST - Grassy Plains (Stage 1).mp3");
-        bg = new GreenfootImage("stages/grassyplains/background.png");
         
+        bg = new GreenfootImage("stages/grassyplains/background.png");
         bg.scale(bg.getWidth() * 2,bg.getHeight() * 2);
         
         WORLD_WIDTH  = bg.getWidth() ;   
-        WORLD_HEIGHT = bg.getHeight() ;  
+        WORLD_HEIGHT = bg.getHeight() ; 
         
         addObject(new UI(new GreenfootImage("characters/" + charName + "/portrait.png")),50,75);
         addObject(new EXPBAR(), 640, 20);
@@ -19,16 +22,21 @@ public class GrassyPlains extends Game
         player = new Player(charName, character);
         player.worldX = 0;
         player.worldY = 0;
+        
         addObject(player, getWidth()/2, getHeight()/2);
         addObject(player.attacks.get(0), 145, 115);
-        
         spawnProps();
     }
     
-    public void spawn_lokal()
+    public void spawn()
     {
+        TimeCountdown TIMER = getObjects(TimeCountdown.class).get(0);
         if (spawnTimer <= 0) {
-            spawn(new Deadbeat());
+            if(TIMER.min == 0 && getObjects(Enemy.class).size() < 300)spawn(new Enemy("chumbud"));
+            if(TIMER.min == 1 && getObjects(Enemy.class).size() < 300)spawn(new Enemy("deadbeat"));
+            if(TIMER.min == 2 && getObjects(Enemy.class).size() < 300)spawn(new Enemy("investigator"));
+            if(TIMER.min == 3 && getObjects(Enemy.class).size() < 300)spawn(new Enemy("kfp"));
+            if(TIMER.min >= 4 && getObjects(Enemy.class).size() < 300)spawn(new Enemy("takodachi"));
             spawnTimer = SPAWN_DELAY;
         }
     }
@@ -38,34 +46,31 @@ public class GrassyPlains extends Game
         for (int i = 0; i < 35; i++) {
             double x = Greenfoot.getRandomNumber((int)WORLD_WIDTH);
             double y = Greenfoot.getRandomNumber((int)WORLD_HEIGHT);
-            String flower = "цветок" + (Greenfoot.getRandomNumber(7) + 1) + ".png";
-            addObject(new Prop(flower, pole , x, y), 0, 0);
-        }
-
-        for (int i = 0; i < 12; i++) {
-            double x = Greenfoot.getRandomNumber((int)WORLD_WIDTH);
-            double y = Greenfoot.getRandomNumber((int)WORLD_HEIGHT);
-            String tree = "дерево" + (Greenfoot.getRandomNumber(2) + 1) + ".png";
-            addObject(new Prop(tree, pole , x, y), 0, 0);
+            addObject(new Prop("flower_" + (Greenfoot.getRandomNumber(8) + 1) + ".png", "grassyplains", x, y), 0, 0);
         }
 
         for (int i = 0; i < 8; i++) {
             double x = Greenfoot.getRandomNumber((int)WORLD_WIDTH);
             double y = Greenfoot.getRandomNumber((int)WORLD_HEIGHT);
-            String col = "колонна" + (Greenfoot.getRandomNumber(2) + 1) + ".png";
-            addObject(new Prop(col, pole , x, y, true), 0, 0);
+            addObject(new Prop("colum_" + (Greenfoot.getRandomNumber(2) + 1) + ".png", "grassyplains", x, y, true), 0, 0);
         }
 
         for (int i = 0; i < 6; i++) {
             double x = Greenfoot.getRandomNumber((int)WORLD_WIDTH);
             double y = Greenfoot.getRandomNumber((int)WORLD_HEIGHT);
-            addObject(new Prop("забор_вертикаль.png", pole , x, y, true), 0, 0);
+            addObject(new Prop("fence_vertical.png", "grassyplains", x, y, true), 0, 0);
         }
 
         for (int i = 0; i < 5; i++) {
             double x = Greenfoot.getRandomNumber((int)WORLD_WIDTH);
             double y = Greenfoot.getRandomNumber((int)WORLD_HEIGHT);
-            addObject(new Prop("забор_горизонт1.png", pole , x, y, true), 0, 0);
+            addObject(new Prop("fence_horizontal.png", "grassyplains", x, y, true), 0, 0);
+        }
+        
+        for (int i = 0; i < 12; i++) {
+            double x = Greenfoot.getRandomNumber((int)WORLD_WIDTH);
+            double y = Greenfoot.getRandomNumber((int)WORLD_HEIGHT);
+            addObject(new Prop("tree_" + (Greenfoot.getRandomNumber(2) + 1) + ".png", "grassyplains", x, y), 0, 0);
         }
     }
 }

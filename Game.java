@@ -17,27 +17,36 @@ public class Game extends World
     int spawnTimer = 0;
     int SPAWN_DELAY = 30;
     int selectedPause = 1;
+    int selectedLevelup = 1;
     
     boolean keyCooldown = true;
     boolean PAUSE = false;
+    boolean LEVELUP = false;
     
     GreenfootImage bg;
     
     public Game()
     {    
         super(1280, 720, 1); 
-        addObject(new TimeCountdown(), getWidth()/2, 50);
+        addObject(new TimeCountdown(), getWidth()/2, 80);
         addObject(new DefeatedCounter(), getWidth()/2 + 425, 50);
-        addObject(new HPbar(),300,50);
+        addObject(new HPBAR(),343, 46);
         addObject(new Pointer(),getWidth()/2,getHeight()/2);
         addObject(new Crosshair(),0,0);
-        setPaintOrder(TimeCountdown.class,DefeatedCounter.class,UI.class,EXPBAR.class,HPbar.class,Pause.class,
-                      Pointer.class, Crosshair.class, Enemy.class, Prop.class);
         addObject(new AttackItemBar(), 320, 115);
-        addObject(new EXPBAR(), 1, 1);
+        setPaintOrder(Pause.class, LevelUp.class,  //TOP PRIORITY
+                      TimeCountdown.class,DefeatedCounter.class,UI.class,EXPBAR.class,HPBAR.class,
+                      Attack_Item.class, AttackItemBar.class, Pointer.class, Crosshair.class, 
+                      Enemy.class); //BOTTOM PRIORITY
+        
     }
 
-    public void spawn(Enemy enemy) //o_0
+    /**
+     * @param enemy - put a type of enemy to spawn it
+     * @param x,y - randomize location to spawn enemy within borders
+     */
+
+    public void spawn(Enemy enemy)
     {
         double angle = Math.toRadians(Greenfoot.getRandomNumber(360));
         double distance = 600 + Greenfoot.getRandomNumber(400);
@@ -46,13 +55,13 @@ public class Game extends World
         wrap_object(enemy);
         addObject(enemy, 0, 0);
     }
-   
-    public void spawn_lokal(){} //под локальную реализацию
     
     public void endgame() {
         music.stop();
         Greenfoot.setWorld(new GameOver());
     }
+    
+    public void spawn(){}
     
     public double wrapX(double x) {
         while (x >= WORLD_WIDTH)  x -= WORLD_WIDTH;
@@ -90,21 +99,35 @@ public class Game extends World
             if (PAUSE) addObject(new Pause(), 640, 360); else removeObject(getObjects(Pause.class).get(0));
         }
         
-        if (!PAUSE) { spawnTimer--; spawn_lokal(); resume(); } else stop();
+        if (!PAUSE && !LEVELUP) { spawnTimer--; spawn(); resume(); } else stop();
         
         if (PAUSE) {
             if (!keyCooldown && (Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up")) && selectedPause != 1) 
             {selectedPause--; keyCooldown = true; Greenfoot.playSound("menu/select.mp3");}
             if (!keyCooldown && (Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down")) && selectedPause != 3) 
             {selectedPause++; keyCooldown = true; Greenfoot.playSound("menu/select.mp3");}
+            
             Pause.selectedPause = selectedPause;
             
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter")) && selectedPause == 1) 
             {removeObject(getObjects(Pause.class).get(0)); PAUSE = false; keyCooldown = true; Greenfoot.playSound("menu/confirm.mp3");}
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter")) && selectedPause == 2) 
             {selectedPause = 5; keyCooldown = true; Greenfoot.playSound("menu/confirm.mp3");}
+            if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter")) && selectedPause == 3) 
+            {music.stop(); keyCooldown = true; Greenfoot.playSound("menu/confirm.mp3"); Greenfoot.setWorld(new Menu());}
             if (!keyCooldown && (Greenfoot.isKeyDown("escape") || Greenfoot.isKeyDown("shift")) && selectedPause == 5) 
             {selectedPause = 2; keyCooldown = true; Greenfoot.playSound("menu/confirm.mp3");}
+        } else if (LEVELUP) {
+            if (!keyCooldown && (Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up"))) 
+            {selectedLevelup--; keyCooldown = true; Greenfoot.playSound("menu/select.mp3");}
+            if (!keyCooldown && (Greenfoot.isKeyDown("s") || Greenfoot.isKeyDown("down"))) 
+            {selectedLevelup++; keyCooldown = true; Greenfoot.playSound("menu/select.mp3");}
+            
+            selectedLevelup += selectedLevelup == 0 ? 4 : 0;
+            selectedLevelup -= selectedLevelup == 5 ? 4 : 0;
+            
+            if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter"))) 
+            {removeObject(getObjects(LevelUp.class).get(0)); LEVELUP = false; keyCooldown = true; Greenfoot.playSound("menu/confirm.mp3");}
         }
         
         if (keyCooldown && !(Greenfoot.isKeyDown("escape") || Greenfoot.isKeyDown("shift") || 
@@ -117,7 +140,6 @@ public class Game extends World
     {
         double camX = player.worldX;
         double camY = player.worldY;
-        
         player.setLocation(getWidth()/2, getHeight()/2);
         
         for (World_objects wObj : getObjects(World_objects.class))
@@ -138,33 +160,38 @@ public class Game extends World
     }
     
     public void draw_background()
-{
-    GreenfootImage canvas = new GreenfootImage(getWidth(), getHeight());
-
-    int camX = (int) player.worldX;
-    int camY = (int) player.worldY;
-
-    int tileW = bg.getWidth();
-    int tileH = bg.getHeight();
-
-    int offsetX = camX % tileW;
-    int offsetY = camY % tileH;
-
-    if (offsetX < 0) offsetX += tileW;
-    if (offsetY < 0) offsetY += tileH;
-
-    int startX = (getWidth() / 2) % tileW - offsetX;
-    int startY = (getHeight() / 2) % tileH - offsetY;
-
-    for (int x = startX - tileW; x < getWidth() + tileW; x += tileW)
     {
-        for (int y = startY - tileH; y < getHeight() + tileH; y += tileH)
+        GreenfootImage canvas = new GreenfootImage(getWidth(), getHeight());
+    
+        int camX = (int)player.worldX;
+        int camY = (int)player.worldY;
+    
+        int tileW = bg.getWidth();
+        int tileH = bg.getHeight();
+    
+        int offsetX = camX % tileW;
+        int offsetY = camY % tileH;
+    
+        if (offsetX < 0) offsetX += tileW;
+        if (offsetY < 0) offsetY += tileH;
+        
+        int startX = (getWidth() / 2) % tileW - offsetX;
+        int startY = (getHeight() / 2) % tileH - offsetY;
+    
+        for (int x = startX-tileW; x < getWidth() + tileW; x += tileW)
         {
-            canvas.drawImage(bg, x, y);
+            for (int y = startY-tileH; y < getHeight() + tileH; y += tileH)
+            {
+                canvas.drawImage(bg, x, y);
+            }
         }
+        setBackground(canvas);
     }
-    setBackground(canvas);
-}
+    
+    public void LevelUp() {
+        addObject(new LevelUp(), 640, 360);
+        LEVELUP = true;
+    }
     
     public void stop() {
         for (Enemy enemy : getObjects(Enemy.class)) enemy.stop                          = true;

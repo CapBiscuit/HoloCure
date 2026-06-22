@@ -87,7 +87,7 @@ public class Menu extends World
             addObject(new Stand("cecilia", 0, 2), 180, 360);
             addObject(new Stand("filian", 15, 1), 310, 340);
             addObject(new Stand("neuro",  19, 1), 430, 360);
-            addObject(new Stand("vova",   32, 1), 550, 360);
+            addObject(new Stand("vova",   32, 3), 550, 360);
             
             addObject(new Stand("amelia",19, 2.5), 120, 460);
             addObject(new Stand("gura",   0, 2.5), 240, 420);
@@ -173,7 +173,7 @@ public class Menu extends World
                 case 1: mannequin.Switch("cecilia"); std.charName = "cecilia"; std.rescale = 3; break;
                 case 2: mannequin.Switch("filian"); std.charName = "filian"; std.rescale = 2; break;
                 case 3: mannequin.Switch("neuro"); std.charName = "neuro"; std.rescale = 2; break;
-                case 4: mannequin.Switch("vova"); std.charName = "vova"; std.rescale = 2; break;
+                case 4: mannequin.Switch("vova"); std.charName = "vova"; std.rescale = 4; break;
             }
             
             setBackground(authorsBackgrounds[selectedAuthor-1]);
@@ -227,27 +227,29 @@ public class Menu extends World
             setBackground(charBackgrounds[selectedCharacter-1]);
             
             //music
-            if (selectedCharacter <= 5) music.playLoop();   else music.pause();
-            if (selectedCharacter == 6) cecilia.playLoop(); else cecilia.pause();
-            if (selectedCharacter == 7) filiana.playLoop();   else filiana.pause();
-            if (selectedCharacter == 8) neuro.playLoop(); else neuro.pause();
-            if (selectedCharacter == 9) vova.playLoop(); else vova.pause();
+            if (selectedCharacter <= 5) music.playLoop();       else music.pause();
+            if (selectedCharacter == 6) cecilia.playLoop();     else cecilia.pause();
+            if (selectedCharacter == 7) filiana.playLoop();     else filiana.pause();
+            if (selectedCharacter == 8) neuro.playLoop();       else neuro.pause();
+            if (selectedCharacter == 9) vova.playLoop();        else vova.pause();
             
             //exit and confirmation
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter"))) {
-                Greenfoot.playSound("menu/confirm.mp3");showStageSelection(); mannequinOffOn(); keyCooldown = true;}
+                Greenfoot.playSound("menu/confirm_char.mp3");showStageSelection(); mannequinOffOn(); keyCooldown = true;}
             if (!keyCooldown && (Greenfoot.isKeyDown("shift") || Greenfoot.isKeyDown("escape"))) {
                 Greenfoot.playSound("menu/exit.mp3");showMainMenu(); mannequinOffOn(); keyCooldown = true;}
         }
         
         if (menu == "stage") {
-            if (!keyCooldown && (Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left"))) {selectedStage--; keyCooldown = true;}
-            if (!keyCooldown && (Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right"))) {selectedStage++; keyCooldown = true;}
+            if (!keyCooldown && (Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left"))) 
+            {selectedStage--; Greenfoot.playSound("menu/select_char.mp3"); keyCooldown = true;}
+            if (!keyCooldown && (Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right"))) 
+            {selectedStage++; Greenfoot.playSound("menu/select_char.mp3"); keyCooldown = true;}
             if (selectedStage == 0) selectedStage = 3; 
             if (selectedStage == 4) selectedStage = 1; 
             setBackground(stageBackgrounds[selectedStage-1]);
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter"))) {
-                Greenfoot.playSound("menu/confirm.mp3");switchToGameStage(); keyCooldown = true;}
+                Greenfoot.playSound("menu/confirm_char.mp3");switchToGameStage(); keyCooldown = true;}
             if (!keyCooldown && (Greenfoot.isKeyDown("shift") || Greenfoot.isKeyDown("escape"))) {
                 Greenfoot.playSound("menu/exit.mp3");showCharacterSelection(); keyCooldown = true;}
         }

@@ -3,6 +3,7 @@ import greenfoot.*;
 public class Enemy extends World_objects
 {
     GreenfootImage[] frames = new GreenfootImage[3];
+    GreenfootImage limpid = new GreenfootImage("limpid.png");
     
     int frameIndex = 0;
     int animDelay = 0;
@@ -10,16 +11,104 @@ public class Enemy extends World_objects
     int WALK_SPEED = 1;
     boolean facingRight = false;
     boolean stop = false;
-    int hp = 200;
-    Attack last_hit_attack = null;
+    int HP = 200;
+    int ATK = 1;
+    Attack last_hit_attack = null; 
 
+    public Enemy(String enemyName) {
+        updateStats(enemyName);
+    }
+    
     public void act()
     {
         if (!stop) {
             moveTowardsPlayer();
             animate();
             hitPlayer();
-            if (hp <= 0) death();
+            if (HP <= 0) death();
+        }
+    }
+    
+    public void updateStats(String enemyName) {
+        switch(enemyName) {
+            case "chumbud": 
+                HP = 8;
+                ATK = 2;
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("enemies/chumbud.png"), 3,1,0,3,2);
+                setImage(frames[0]);
+                break;
+            case "deadbeat": 
+                HP = 40;
+                ATK = 4;
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("enemies/deadbeat.png"), 3,1,0,3,2);
+                setImage(frames[0]);
+                break;
+            case "takodachi": 
+                HP = 80;
+                ATK = 4;
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("enemies/takodachi.png"), 3,1,0,3,2);
+                setImage(frames[0]);
+                break;
+            case "kfp": 
+                HP = 20;
+                ATK = 2;
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("enemies/kfp.png"), 3,1,0,3,2);
+                setImage(frames[0]);
+                break;
+            case "investigator": 
+                HP = 40;
+                ATK = 4;
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("enemies/investigator.png"), 3,1,0,3,2);
+                setImage(frames[0]);
+                break;
+            case "sukonbu": 
+                HP = 10;
+                ATK = 3;
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("enemies/sukonbu.png"), 3,1,0,3,2);
+                setImage(frames[0]);
+                break;
+            case "miofa": 
+                HP = 40;
+                ATK = 5;
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("enemies/miofa.png"), 3,1,0,3,2);
+                setImage(frames[0]);
+                break;
+            case "koronesuki": 
+                HP = 120;
+                ATK = 6;
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("enemies/koronesuki.png"), 3,1,0,3,2);
+                setImage(frames[0]);
+                break;
+            case "onigiriya": 
+                HP = 80;
+                ATK = 7;
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("enemies/onigiriya.png"), 3,1,0,3,2);
+                setImage(frames[0]);
+                break;
+            case "matsurisu": 
+                HP = 12;
+                ATK = 3;
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("enemies/matsurisu.png"), 3,1,0,3,2);
+                setImage(frames[0]);
+                break;
+            case "haaton": 
+                HP = 45;
+                ATK = 4;
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("enemies/haaton.png"), 3,1,0,3,2);
+                setImage(frames[0]);
+                break;
+            case "kapumin": 
+                HP = 90;
+                ATK = 8;
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("enemies/kapumin.png"), 3,1,0,3,2);
+                setImage(frames[0]);
+                break;
+            case "rosetai": 
+                HP = 140;
+                ATK = 9;
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("enemies/rosetai.png"), 3,1,0,3,2);
+                setImage(frames[0]);
+                break;
         }
     }
     
@@ -45,12 +134,12 @@ public class Enemy extends World_objects
         worldX -= (dx / distance) * WALK_SPEED;
         worldY -= (dy / distance) * WALK_SPEED;
         game.wrap_object(this);
+        
     }
 
     public void animate()
     {
-        if (getX() < 5 || getX() > 1275 || getY() < 5 || getY() > 715) //o_0// было бы непло считать эти граници относительно спрайтов мобов
-        { setImage(limpid); return; } 
+        if (getX() < 5 || getX() > 1275 || getY() < 5 || getY() > 715) { setImage(limpid); return; } 
         animDelay--;
         if (animDelay <= 0) {
             animDelay = ANIM_SPEED;
@@ -63,12 +152,13 @@ public class Enemy extends World_objects
 
     public void hitPlayer() {
         Player player = (Player) getOneIntersectingObject(Player.class);
-        if (player != null) player.getDamaged();
+        if (player != null) player.getDamaged(ATK);
     }
     
     
     public void hit(int damage) {
-        hp -= damage;
+        HP -= damage;
+        Greenfoot.playSound("game/enemy_hit.mp3");
     }
     
     
@@ -77,7 +167,6 @@ public class Enemy extends World_objects
         EXP exp = new EXP();
         exp.worldX = worldX;
         exp.worldY = worldY;
-        ((Game)getWorld()).wrap_object(exp);
         getWorld().addObject(exp, 0, 0);
         
         DefeatedCounter counter = (DefeatedCounter) getWorld().getObjects(DefeatedCounter.class).get(0);

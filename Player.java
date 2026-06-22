@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 public class Player extends Actor
 {
-    // data о_0 // было бы неплохо вынести всю игровую статистику отдельно 
     public double worldX;
     public double worldY;
     
@@ -25,11 +24,12 @@ public class Player extends Actor
     // Stats
     int HP_CAP = 100;
     int HP = 100;
-    float ATK_MOD = 1;
+    double ATK_MOD = 1;
     int INVINCIBILITY = 0;
     int WeaponCooldown = 0;
     int BurstCooldown = 50;
     int BURST = 0;
+    int CRT = 5;
     ArrayList<Attack_Item> attacks = new ArrayList<Attack_Item>();
     
     // Exp
@@ -40,19 +40,20 @@ public class Player extends Actor
     // Movement
     String STATUS = "stand"; // stand // walk //
     boolean facingRight = false;
-    int WALK_SPEED = 5;
+    double WALK_SPEED = 4;
 
     // Attack
     int attackCooldown = 0;
     public Player(String charName, int character)
     {
         this.charName = charName;
-        standSets = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/" + charName + "/" + charName + ".png"), 6,2,0,3,1.5);
-        moveSets  = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/" + charName + "/" + charName + ".png"), 6,2,1,6,1.5);
+        standSets = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/" + charName + "/" + charName + ".png"), 6,2,0,3,2);
+        moveSets  = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/" + charName + "/" + charName + ".png"), 6,2,1,6,2);
         setImage(standSets[0]);
         attacks.add(new Attack_Item(character));
+        updateStats(charName);
     }
-
+    
     public void act()
     {
         if (this != null && !stop) {
@@ -60,34 +61,12 @@ public class Player extends Actor
             death();
             update();
         }
-        
     }
     
-    /**
-     * Amelia Exclusive Attack  -  a  G u n    // Never give your VTuber a GUN
-     * 
-     * Creates a Burst of projectiles. 
-     * It shoots every 10 frames, but can not shoot during BurstCooldown.
-     * The lower BurstCooldown the more bullets are shot // Default is 3 bullets
-     * With BurstCooldown = 0 shoots all the time
-     * 
-     * BURST (70 frames) Visualization: |-------Burst window (BurstCooldown)-------|------Bursting------|
-     * Default Visualization:           |----------------------------------------|*|---------*---------*| 
-     *                                                      50 frames             ^         20 frames
-     *                    "*" bullet                                              |
-     *                    "-" 1 frame                                        Bullet shot 
-     *                                                                      at 50th frame
-     */
-    
-    /**
-     * Creates Attack that deals damage to Enemies.
-     * A little buggy, but whatever...
-     */
-
     public void movements()
     {
-        int xSpeed = 0;
-        int ySpeed = 0;
+        double xSpeed = 0;
+        double ySpeed = 0;
         int buttonPressed = 0;
 
         if (Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w")) {
@@ -117,8 +96,8 @@ public class Player extends Actor
         
         double newX = worldX + (buttonPressed >= 2 ? xSpeed / Math.sqrt(2) : xSpeed);
         double newY = worldY + (buttonPressed >= 2 ? ySpeed / Math.sqrt(2) : ySpeed);
-        Game game = (Game)getWorld();
         
+        Game game = (Game)getWorld();
         
         if (game == null) return;
         if (game instanceof HoloOffice) {
@@ -136,22 +115,19 @@ public class Player extends Actor
             if (newY > 1535 * mn) newY = 1535 * mn;
         
             if (newX < 745 * mn && newY < 765 * mn) {
-                if (worldX >= 745 * mn)
-                    newX = 745 * mn;
-                else
-                    newY = 765 * mn;
+                if (worldX >= 745 * mn) newX = 745 * mn;
+                else newY = 765 * mn;
             }
         
             if (newX > 1256 * mn && newY < 765 * mn) {
-                if (worldX <= 1256 * mn)
-                    newX = 1256 * mn;
-                else
-                    newY = 765 * mn;
+                if (worldX <= 1256 * mn) newX = 1256 * mn;
+                else newY = 765 * mn;
             }
         }
     
         worldX = newX;
         worldY = newY;
+        
         if (game != null) {
             game.wrap_object(this); 
         }
@@ -164,10 +140,9 @@ public class Player extends Actor
             break;
             }
         }
+    }
         
-        }
-        
-        private boolean intersectsProp(Prop p)
+    private boolean intersectsProp(Prop p) 
     {
         double dx = Math.abs(worldX - p.worldX);
         double dy = Math.abs(worldY - p.worldY);
@@ -175,18 +150,25 @@ public class Player extends Actor
                dy < (getImage().getHeight()/2 + p.getImage().getHeight()/2);
     }
     
-        public void death()
-        {
-            if (HP == 0) ((Game) getWorld()).endgame();
-            if (INVINCIBILITY != 0) INVINCIBILITY--;
-        }
+    public void getHealed(int amount) {
+        HP += amount;
+        if (HP>HP_CAP) HP=HP_CAP;
+    }
     
-    public void getDamaged() {
+    public void getDamaged(int damage) {
         if (HP != 0 && INVINCIBILITY == 0) {
-            HP -= 10;
+            HP -= damage;
+            Greenfoot.playSound("game/hit_player.mp3");
             INVINCIBILITY = 100;
         }
     }
+    
+    public void death()
+    {
+        if (HP < 0) ((Game) getWorld()).endgame();
+        if (INVINCIBILITY != 0) INVINCIBILITY--;
+    }
+    
     /**
      * Player's animation
      */
@@ -211,19 +193,85 @@ public class Player extends Actor
     /**
      * Increases Exp by 1.
      * When reached EXP_CAP:
-     * Increases ATK by 1. // Not supported as of now, as Enemies dies immediatly
-     * Heals Player by 10.
-     * Increases Time left by 50 seconds. // Later remove as it's pointless
-     * Increases EXP_CAP by 5.
+     * Increases EXP_CAP 1.3 times.
      */
     public void increaseExp(int amount)
     {
         Exp += amount;
         if (Exp == EXP_CAP) {
-            if (HP != 100) HP += 10;
-            TimeCountdown time = (TimeCountdown) getWorld().getObjects(TimeCountdown.class).get(0);
+            Game game = (Game)getWorld();
+            Greenfoot.playSound("game/level.mp3");
+            game.LevelUp();
             Exp = 0;
-            EXP_CAP = (int)(EXP_CAP * 1.2);
+            EXP_CAP = (int)(EXP_CAP * 1.3);
+        }
+    }
+    
+    public void updateStats(String charName) {
+        switch(charName) {
+            case "amelia":
+                HP_CAP = 75;
+                HP = HP_CAP;
+                ATK_MOD = 1.3;
+                WALK_SPEED *= 1.35;
+                CRT = 10;
+                break;
+            case "gura":
+                HP_CAP = 65;
+                HP = HP_CAP;
+                ATK_MOD = 1.1;
+                WALK_SPEED *= 1.4;
+                CRT = 5;
+                break;
+            case "ina":
+                HP_CAP = 75;
+                HP = HP_CAP;
+                ATK_MOD = 0.9;
+                WALK_SPEED *= 1.5;
+                CRT = 1;
+                break;
+            case "kiara":
+                HP_CAP = 90;
+                HP = HP_CAP;
+                ATK_MOD = 1;
+                WALK_SPEED *= 1.4;
+                CRT = 5;
+                break;
+            case "mori":
+                HP_CAP = 70;
+                HP = HP_CAP;
+                ATK_MOD = 1.15;
+                WALK_SPEED *= 1.3;
+                CRT = 10;
+                break;
+            case "cecilia":
+                HP_CAP = 100;
+                HP = HP_CAP;
+                ATK_MOD = 1;
+                WALK_SPEED *= 1.2;
+                CRT = 10;
+                break;
+            case "filian":
+                HP_CAP = 60;
+                HP = HP_CAP;
+                ATK_MOD = 1.15;
+                WALK_SPEED *= 1.4;
+                CRT = 5;
+                break;
+            case "vedal":
+                HP_CAP = 65;
+                HP = HP_CAP;
+                ATK_MOD = 1.2;
+                WALK_SPEED *= 1.2;
+                CRT = 12;
+                break;
+            case "caine":
+                HP_CAP = 80;
+                HP = HP_CAP;
+                ATK_MOD = 1.2;
+                WALK_SPEED *= 1.1;
+                CRT = 5;
+                break;
         }
     }
 }

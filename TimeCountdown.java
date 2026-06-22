@@ -6,6 +6,20 @@ public class TimeCountdown extends Actor {
     int actCounter = 0;         // counts acts to decrement each second
     int ACTS_PER_SECOND = 60;
     boolean stop = false;
+    GreenfootImage TIMER = new GreenfootImage(80, 28);
+    GreenfootImage[] numbers = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("font/num.png"),10,1,0,10,2);
+    GreenfootImage colon = new GreenfootImage("font/colon.png");
+    
+    public TimeCountdown() {
+        colon.scale(15,21);
+        TIMER.clear();
+        TIMER.drawImage(numbers[min/10], 0, 0);
+        TIMER.drawImage(numbers[min%10], 16, 0);
+        TIMER.drawImage(colon, 32, 0);
+        TIMER.drawImage(numbers[sec/10], 48, 0);
+        TIMER.drawImage(numbers[sec%10], 64, 0);
+        setImage(TIMER);
+    }
     
     public void act() {
         if (!stop) {
@@ -14,17 +28,20 @@ public class TimeCountdown extends Actor {
                 actCounter = 0;
                 sec++;
                 if (sec == 60) { sec -= 60; min++; }
-                updateImage();
+                update();
             }
         }
     }
 
-    private void updateImage() {
-        GreenfootImage img = new GreenfootImage(120, 40);
-        img.setColor(Color.WHITE);
-        img.setFont(new Font("Arial", true, false, 20));
-        img.drawString(min + " : " + sec, 10, 25);
-        setImage(img);
+    private void update() {
+        colon.scale(15,21);
+        TIMER.clear();
+        TIMER.drawImage(numbers[min/10], 0, 0);
+        TIMER.drawImage(numbers[min%10], 16, 0);
+        TIMER.drawImage(colon, 32, 0);
+        TIMER.drawImage(numbers[sec/10], 48, 0);
+        TIMER.drawImage(numbers[sec%10], 64, 0);
+        setImage(TIMER);
     }
     
 }

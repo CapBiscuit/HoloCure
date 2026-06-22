@@ -1,11 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-/**
- * Write a description of class Attack_Item here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class Attack_Item extends Actor
 {
     boolean stop = false;

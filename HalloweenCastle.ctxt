@@ -1,12 +1,10 @@
 #BlueJ class context
 comment0.target=HalloweenCastle
-comment0.text=\r\n\ Stage\ 1\r\n
+comment0.text=\r\n\ Stage\ 3\r\n
 comment1.params=charName\ character
 comment1.target=HalloweenCastle(java.lang.String,\ int)
 comment2.params=
-comment2.target=void\ spawn_lokal()
-comment3.params=enemy
-comment3.target=void\ spawn_l(Enemy)
-comment4.params=
-comment4.target=void\ spawnProps()
-numComments=5
+comment2.target=void\ spawn()
+comment3.params=
+comment3.target=void\ spawnProps()
+numComments=4

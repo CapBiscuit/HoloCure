@@ -3,16 +3,13 @@ import greenfoot.*;
 public class Prop extends World_objects
 {
     private boolean isSolid = false; 
-    private String type;
     public GreenfootImage img;
 
-    public Prop(String imageName, String pole, double worldX, double worldY, boolean solid)
+    public Prop(String imageName, String stage, double worldX, double worldY, boolean solid)
     {
-        this.type = imageName;
-        this.type = pole;
         this.isSolid = solid;
         
-        img = new GreenfootImage("stages/" + pole + "/props/" + imageName);
+        img = new GreenfootImage("stages/" + stage + "/props/" + imageName);
         img.scale((int)(img.getWidth() * 1.75), (int)(img.getHeight() * 1.75));
         setImage(img);
         
@@ -20,16 +17,16 @@ public class Prop extends World_objects
         this.worldY = worldY;
     }
 
-    public Prop(String imageName, String pole, double worldX, double worldY)
+    public Prop(String imageName, String stage, double worldX, double worldY)
     {
-        this(imageName, pole, worldX, worldY, false);
+        this(imageName, stage, worldX, worldY, false);
     }
 
     public boolean isSolid(){return isSolid;}
 
     public void act()
     {
-        if (getX() < 5 || getX() > 1275 || getY() < 5 || getY() > 715) //o_0// было бы непло считать эти граници относительно спрайтов мобов
+        if (getX() < 5 || getX() > 1275 || getY() < 5 || getY() > 715)
         { setImage(limpid); return; } 
         setImage(img);
     }

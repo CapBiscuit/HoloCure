@@ -1,8 +1,6 @@
 import greenfoot.*;
 
 public class EXP extends World_objects
-
-    
 {
     GreenfootImage img = new GreenfootImage("misc/EXP.png");
     GreenfootImage limpid = new GreenfootImage("limpid.png");
@@ -17,10 +15,11 @@ public class EXP extends World_objects
         Player player = (Player) getWorld().getObjects(Player.class).get(0);
         if (isTouching(Player.class)) {
             player.increaseExp(1);
+            Greenfoot.playSound("game/exp_gain.mp3");
             getWorld().removeObject(this);
             return;
         }
-        if (getX() < 5 || getX() > 1275 || getY() < 5 || getY() > 715) //o_0//
+        if (getX() < 5 || getX() > 1275 || getY() < 5 || getY() > 715)
         { setImage(limpid); } else { setImage(img); }
         
     }
