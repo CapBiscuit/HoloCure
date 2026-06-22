@@ -6,6 +6,7 @@ import greenfoot.*;
 
 public class GrassyPlains extends Game
 {
+    double x, y, mn = 2;
     public GrassyPlains(String charName, int character)
     {
         music = new GreenfootSound("OST/HoloCure OST - Grassy Plains (Stage 1).mp3");
@@ -20,7 +21,7 @@ public class GrassyPlains extends Game
         addObject(new EXPBAR(), 640, 20);
         
         player = new Player(charName, character);
-        player.worldX = 0;
+        player.worldX = WORLD_WIDTH/2;
         player.worldY = 0;
         
         addObject(player, getWidth()/2, getHeight()/2);
@@ -72,5 +73,16 @@ public class GrassyPlains extends Game
             double y = Greenfoot.getRandomNumber((int)WORLD_HEIGHT);
             addObject(new Prop("tree_" + (Greenfoot.getRandomNumber(2) + 1) + ".png", "grassyplains", x, y), 0, 0);
         }
+    }
+    private void gen(){
+        x = 0;
+        y = 0;
+        do{
+            x = Greenfoot.getRandomNumber((int)WORLD_WIDTH);
+            y = Greenfoot.getRandomNumber((int)WORLD_HEIGHT);
+        }while (
+                 ((x - WORLD_WIDTH/2) * (x - WORLD_WIDTH/2) +
+                 (y - 1400) * (y - 1400) < 150 * 150)
+            );
     }
 }
