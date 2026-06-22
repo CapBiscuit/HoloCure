@@ -21,7 +21,7 @@ public class EXPBAR extends Actor
         EXPBAR_frame.scale(1280, 56);
         
         Player player = getWorld().getObjects(Player.class).get(0);
-        GreenfootImage EXPBAR_animation_frame = new GreenfootImage(5+1280*player.Exp/player.EXP_CAP,56);
+        GreenfootImage EXPBAR_animation_frame = new GreenfootImage(5+1280*player.Exp/player.EXP_CAP,30);
         
         EXPBAR_animation_frame.drawImage(EXPBAR_animation[frame], 0, -2);
         EXPBAR.drawImage(EXPBAR_background, 0, 0);
