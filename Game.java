@@ -127,7 +127,7 @@ public class Game extends World
             selectedLevelup -= selectedLevelup == 5 ? 4 : 0;
             
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter"))) 
-            {removeObject(getObjects(LevelUp.class).get(0)); LEVELUP = false; keyCooldown = true; Greenfoot.playSound("menu/confirm.mp3");}
+            {while (getObjects(LevelUp.class).size() != 0) removeObject(getObjects(LevelUp.class).get(0)); LEVELUP = false; keyCooldown = true; Greenfoot.playSound("menu/confirm.mp3");}
         }
         
         if (keyCooldown && !(Greenfoot.isKeyDown("escape") || Greenfoot.isKeyDown("shift") || 
@@ -198,6 +198,7 @@ public class Game extends World
         for (Projectile projectile : getObjects(Projectile.class)) projectile.stop      = true;
         for (Attack Atk : getObjects(Attack.class)) Atk.stop                            = true;
         for (Attack_Item Atk_I : getObjects(Attack_Item.class)) Atk_I.stop              = true;
+        for (EXP exp : getObjects(EXP.class)) exp.stop                                  = true;
         getObjects(Player.class).get(0).stop                                            = true;
         getObjects(Pointer.class).get(0).stop                                           = true;
         getObjects(TimeCountdown.class).get(0).stop                                     = true;
@@ -208,6 +209,7 @@ public class Game extends World
         for (Projectile projectile : getObjects(Projectile.class)) projectile.stop      = false;
         for (Attack Atk : getObjects(Attack.class)) Atk.stop                            = false;
         for (Attack_Item Atk_I : getObjects(Attack_Item.class)) Atk_I.stop              = false;
+        for (EXP exp : getObjects(EXP.class)) exp.stop                                  = false;
         getObjects(Player.class).get(0).stop                                            = false;
         getObjects(Pointer.class).get(0).stop                                           = false;
         getObjects(TimeCountdown.class).get(0).stop                                     = false;

@@ -15,6 +15,8 @@ public class LevelUp extends Actor
     
     public void update()
     {
-        setImage(new GreenfootImage("menu/pause_1.png"));
+        Game game = (Game)getWorld();
+        GreenfootImage bg = new GreenfootImage("menu/UpgradeScreen" + game.selectedLevelup + ".png");
+        setImage(bg);
     }
 }

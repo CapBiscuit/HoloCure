@@ -27,7 +27,7 @@ public class Menu extends World
     GreenfootSound cecilia  = new GreenfootSound("OST/Nevermore.mp3"); //Nevermore
     GreenfootSound filiana  = new GreenfootSound("OST/Snackers.mp3"); //Snackers
     GreenfootSound neuro    = new GreenfootSound("OST/Truck.mp3"); //Chinatown //Truck //Evil
-    GreenfootSound vova     = new GreenfootSound("OST/HoloCure OST - Title.mp3");
+    GreenfootSound caine     = new GreenfootSound("OST/HoloCure OST - Title.mp3");
     
     public Menu()
     {
@@ -87,7 +87,7 @@ public class Menu extends World
             addObject(new Stand("cecilia", 0, 2), 180, 360);
             addObject(new Stand("filian", 15, 1), 310, 340);
             addObject(new Stand("neuro",  19, 1), 430, 360);
-            addObject(new Stand("vova",   32, 3), 550, 360);
+            addObject(new Stand("caine",   32, 3), 550, 360);
             
             addObject(new Stand("amelia",19, 2.5), 120, 460);
             addObject(new Stand("gura",   0, 2.5), 240, 420);
@@ -133,8 +133,8 @@ public class Menu extends World
             case 5: charName = "mori"; break;
             case 6: charName = "cecilia"; break;
             case 7: charName = "filian"; break;
-            case 8: charName = "neuro"; break;
-            case 9: charName = "vova"; break;
+            case 8: charName = "caine"; break;
+            case 9: charName = "neuro"; break;
         }
         
         switch (selectedStage) { 
@@ -172,8 +172,8 @@ public class Menu extends World
             switch(selectedAuthor) {
                 case 1: mannequin.Switch("cecilia"); std.charName = "cecilia"; std.rescale = 3; break;
                 case 2: mannequin.Switch("filian"); std.charName = "filian"; std.rescale = 2; break;
-                case 3: mannequin.Switch("neuro"); std.charName = "neuro"; std.rescale = 2; break;
-                case 4: mannequin.Switch("vova"); std.charName = "vova"; std.rescale = 4; break;
+                case 3: mannequin.Switch("caine"); std.charName = "caine"; std.rescale = 4; break;
+                case 4: mannequin.Switch("neuro"); std.charName = "neuro"; std.rescale = 2; break;
             }
             
             setBackground(authorsBackgrounds[selectedAuthor-1]);
@@ -219,8 +219,8 @@ public class Menu extends World
                 case 5: mannequin.Switch("mori");    break;
                 case 6: mannequin.Switch("cecilia"); break;
                 case 7: mannequin.Switch("filian");  break;
-                case 8: mannequin.Switch("neuro");   break;
-                case 9: mannequin.Switch("vova");    break;
+                case 8: mannequin.Switch("caine");    break;
+                case 9: mannequin.Switch("neuro");   break;
             }
             
             //background
@@ -231,7 +231,7 @@ public class Menu extends World
             if (selectedCharacter == 6) cecilia.playLoop();     else cecilia.pause();
             if (selectedCharacter == 7) filiana.playLoop();     else filiana.pause();
             if (selectedCharacter == 8) neuro.playLoop();       else neuro.pause();
-            if (selectedCharacter == 9) vova.playLoop();        else vova.pause();
+            if (selectedCharacter == 9) caine.playLoop();        else caine.pause();
             
             //exit and confirmation
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter"))) {

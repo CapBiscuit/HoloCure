@@ -198,11 +198,12 @@ public class Player extends Actor
     public void increaseExp(int amount)
     {
         Exp += amount;
-        if (Exp == EXP_CAP) {
+        if (Exp >= EXP_CAP) {
             Game game = (Game)getWorld();
             Greenfoot.playSound("game/level.mp3");
             game.LevelUp();
-            Exp = 0;
+            level++;
+            Exp -= EXP_CAP;
             EXP_CAP = (int)(EXP_CAP * 1.3);
         }
     }
@@ -258,12 +259,12 @@ public class Player extends Actor
                 WALK_SPEED *= 1.4;
                 CRT = 5;
                 break;
-            case "vedal":
-                HP_CAP = 65;
+            case "neuro":
+                HP_CAP = 85;
                 HP = HP_CAP;
-                ATK_MOD = 1.2;
-                WALK_SPEED *= 1.2;
-                CRT = 12;
+                ATK_MOD = 1.3;
+                WALK_SPEED *= 0.8;
+                CRT = 4;
                 break;
             case "caine":
                 HP_CAP = 80;

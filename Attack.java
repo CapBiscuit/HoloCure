@@ -47,6 +47,10 @@ public class Attack extends Actor
                 frames = new GreenfootImage[6];
                 frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/filian/attack.png"), 6,1,0,6,attack_size);
                 break;
+            case 8:
+                frames = new GreenfootImage[6];
+                frames = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/filian/attack.png"), 6,1,0,6,attack_size);
+                break;
         }
         damage = dmg;
         setRotation(rotation);

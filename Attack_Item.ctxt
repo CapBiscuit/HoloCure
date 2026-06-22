@@ -8,4 +8,6 @@ comment3.params=
 comment3.target=void\ melee()
 comment4.params=
 comment4.target=void\ shoot()
-numComments=5
+comment5.params=
+comment5.target=void\ random()
+numComments=6
