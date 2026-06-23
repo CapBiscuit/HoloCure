@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=BitmapFont
+comment1.params=imageName\ glyphWidth\ glyphHeight
+comment1.target=BitmapFont(java.lang.String,\ int,\ int)
+comment2.params=
+comment2.target=void\ loadGlyphs()
+comment3.params=chars\ row
+comment3.target=void\ loadRow(java.lang.String,\ int)
+comment4.params=text\ scale
+comment4.target=greenfoot.GreenfootImage\ renderText(java.lang.String,\ int)
+numComments=5

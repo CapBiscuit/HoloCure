@@ -16,6 +16,8 @@ public class Attack_Item extends Actor
     boolean is_shooting = false;
     int level = 1;
     int multi_hit_angle;
+    GreenfootImage weapon_icon;
+    String Name;
     
     Attack_Item(int ind) {
         index = ind;
@@ -35,22 +37,20 @@ public class Attack_Item extends Actor
                 cooldown_maximum = 20;
                 hit_limit = 1;
                 burst_cd = 10;
-                GreenfootImage weapon_icon = new GreenfootImage("Weapons/Amelia.png");
-                weapon_icon.scale(40, 40);
-                setImage(weapon_icon);
+                weapon_icon = new GreenfootImage("Weapons/Amelia.png");
+                Name = "Amelia";
                 break;
             }
             case 2: {
                 type = 1;
                 damage = 16;
-                amount = 3;
+                amount = 1;
                 cooldown_maximum = 70;
                 size *= 1.4;
                 burst_cd = 5;
                 multi_hit_angle = 15;
-                GreenfootImage weapon_icon = new GreenfootImage("Weapons/Gawr.png");
-                weapon_icon.scale(40, 40);
-                setImage(weapon_icon);
+                weapon_icon = new GreenfootImage("Weapons/Gawr.png");
+                Name = "Gawr";
                 break;
             }
             case 3: {
@@ -59,9 +59,9 @@ public class Attack_Item extends Actor
                 amount = 1;
                 cooldown_maximum = 100;
                 size *= 1.5;
-                GreenfootImage weapon_icon = new GreenfootImage("Weapons/Ina.png");
-                weapon_icon.scale(40, 40);
-                setImage(weapon_icon);
+                multi_hit_angle = 90;
+                weapon_icon = new GreenfootImage("Weapons/Ina.png");
+                Name = "Ina";
                 break;
             }
             case 4: {
@@ -70,9 +70,8 @@ public class Attack_Item extends Actor
                 cooldown_maximum = 70;
                 amount = 1;
                 size *= 0.6;
-                GreenfootImage weapon_icon = new GreenfootImage("Weapons/Kiara.png");
-                weapon_icon.scale(40, 40);
-                setImage(weapon_icon);
+                weapon_icon = new GreenfootImage("Weapons/Kiara.png");
+                Name = "Kiara";
                 break;
             }
             case 5: {
@@ -81,20 +80,18 @@ public class Attack_Item extends Actor
                 cooldown_maximum = 90;
                 amount = 1;
                 size *= 1.5;
-                GreenfootImage weapon_icon = new GreenfootImage("Weapons/Mori.png");
-                weapon_icon.scale(40, 40);
-                setImage(weapon_icon);
+                weapon_icon = new GreenfootImage("Weapons/Mori.png");
+                Name = "Mori";
                 break;
             }
             case 6: {
                 size *= 1.5;
                 damage = 6;
                 cooldown_maximum = 70;
+                amount = 1;
                 type = 1;
-                GreenfootImage weapon_icon = new GreenfootImage("Weapons/Cecilia.png");
-                weapon_icon.scale(40, 40);
-                setImage(weapon_icon);
-                
+                weapon_icon = new GreenfootImage("Weapons/Cecilia.png");
+                Name = "Cecilia";
                 break;
             }
             case 7: {
@@ -103,9 +100,8 @@ public class Attack_Item extends Actor
                 cooldown_maximum = 35;
                 size *= 0.8;
                 amount = 1;
-                GreenfootImage weapon_icon = new GreenfootImage("Weapons/Filian.png");
-                weapon_icon.scale(40, 40);
-                setImage(weapon_icon);
+                weapon_icon = new GreenfootImage("Weapons/Filian.png");
+                Name = "Filian";
                 break;
             }
             case 8: {
@@ -114,9 +110,8 @@ public class Attack_Item extends Actor
                 cooldown_maximum = 100;
                 size *= 1.5;
                 amount = 1;
-                GreenfootImage weapon_icon = new GreenfootImage("Weapons/Caine.png");
-                weapon_icon.scale(40, 40);
-                setImage(weapon_icon);
+                weapon_icon = new GreenfootImage("Weapons/Caine.png");
+                Name = "Caine";
                 break;
             }
             case 9: {
@@ -126,12 +121,79 @@ public class Attack_Item extends Actor
                 size *= 1;
                 amount = 2;
                 burst_cd = 15;
-                GreenfootImage weapon_icon = new GreenfootImage("Weapons/Neuro.png");
-                weapon_icon.scale(40, 40);
-                setImage(weapon_icon);
+                weapon_icon = new GreenfootImage("Weapons/Neuro.png");
+                Name = "Neuro";
+                break;
+            }
+            case 10: {
+                type = 5;
+                damage = 10;
+                cooldown_maximum = 80;
+                size *= 1;
+                amount = 2;
+                burst_cd = 15;
+                weapon_icon = new GreenfootImage("Weapons/Elite_Lava_Bucket.png");
+                Name = "Elite_Lava_Bucket";
+                break;
+            }
+            case 11: {
+                type = 5;
+                damage = 10;
+                cooldown_maximum = 80;
+                size *= 1;
+                amount = 1;
+                burst_cd = 15;
+                weapon_icon = new GreenfootImage("Weapons/Spider_Cooking.png");
+                Name = "Spider_Cooking";
+                break;
+            }
+            case 12: {
+                type = 5;
+                damage = 10;
+                cooldown_maximum = 80;
+                size *= 1;
+                amount = 2;
+                burst_cd = 15;
+                weapon_icon = new GreenfootImage("Weapons/Plug_Type_Asacoco.png");
+                Name = "Plug_Type_Asacoco";
+                break;
+            }
+            case 13: {
+                type = 5;
+                damage = 10;
+                cooldown_maximum = 80;
+                size *= 1;
+                amount = 2;
+                burst_cd = 15;
+                weapon_icon = new GreenfootImage("Weapons/Holo_Bomb.png");
+                Name = "Holo_Bomb";
+                break;
+            }
+            case 14: {
+                type = 5;
+                damage = 10;
+                cooldown_maximum = 80;
+                size *= 1;
+                amount = 2;
+                burst_cd = 15;
+                weapon_icon = new GreenfootImage("Weapons/Psycho_Axe.png");
+                Name = "Psycho_Axe";
+                break;
+            }
+            case 15: {
+                type = 5;
+                damage = 10;
+                cooldown_maximum = 80;
+                size *= 1;
+                amount = 2;
+                burst_cd = 15;
+                weapon_icon = new GreenfootImage("Weapons/BL_Book.png");
+                Name = "BL_Book";
                 break;
             }
         }
+        weapon_icon.scale(40, 40);
+        setImage(weapon_icon);
     }
     
     
@@ -140,7 +202,7 @@ public class Attack_Item extends Actor
         if (!stop) {
             if (type == 1) melee();      
             else if (type == 4) random();
-            else shoot();
+            else if (type < 4 && type > 1) shoot();
         }
     }    
     
@@ -282,43 +344,144 @@ public class Attack_Item extends Actor
     public void upgrade() {
         level++;
         switch (index) {
-            case 1: {
+            case 1: //Amelia
                 switch (level) {
-                    case 2: {
-                        hit_limit++;
-                        amount = 5;
-                    }
-                    case 3: {
-                        damage = (int)(damage * 1.2);
-                    }
-                    case 5: {
-                        hit_limit++;
-                        cooldown_maximum = (int)(cooldown_maximum * 0.75);
-                    }
-                    case 6: {
-                        damage = (int)(damage * 1.2);
-                    }
+                    case 2: amount = 5; hit_limit++; break;
+                    case 3: damage = (int)(damage * 1.2);break;
+                    case 4: hit_limit++;break;
+                    case 5: hit_limit++; cooldown_maximum = (int)(cooldown_maximum * 0.75);break;
+                    case 6: damage = (int)(damage * 1.2);break;
+                    case 7: damage = (int)(damage * 1.15);break;
                 }
-            }
-            case 2: {
+                break;
+            case 2: // Gura
                 switch(level) {
-                    case 2: damage = (int)(damage * 1.2);
-                    case 3: amount++;
-                    case 4: cooldown_maximum = (int)(cooldown_maximum * 0.85);
-                    case 5: damage = (int)(damage * 1.4);
-                    case 6: size = size * 1.25;
-                    case 7: amount++;
+                    case 2: damage = (int)(damage * 1.2);break;
+                    case 3: amount++;break;
+                    case 4: cooldown_maximum = (int)(cooldown_maximum * 0.85);break;
+                    case 5: damage = (int)(damage * 1.4);break;
+                    case 6: size *= 1.25;break;
+                    case 7: amount++;break;
                 }
-            }
-            case 3: {
+                break;
+            case 3: // Ina
                 switch(level) {
-                    case 2: damage = (int)(damage * 1.2);
-                    case 3: size = size * 1.15;
-                    case 4: damage = (int)(damage * 1.3);
-                    case 5: cooldown_maximum = (int)(cooldown_maximum * 0.9);
-                    case 6: size = size * 1.1;
+                    case 2: damage = (int)(damage * 1.2);break;
+                    case 3: cooldown_maximum = (int)(cooldown_maximum * 0.8);break;
+                    case 4: size *= 1.25;break;
+                    case 5: damage = (int)(damage * 1.5);break;
+                    case 6: size = size * 1.1;break;
+                    case 7: amount += 3;break;
                 }
-            }
+                break;
+            case 4: // Kiara
+                switch(level) {
+                    case 2: damage = (int)(damage * 1.2);break;
+                    case 3: size *= 1.25;break;
+                    case 4: cooldown_maximum = (int)(cooldown_maximum * 0.85);break;
+                    case 5: size *= 1.25;break; // Should be "Can hit twice per slash." but hard to realize. replaced with "Increase attack area by 25%. "  
+                    case 6: damage = (int)(damage * 1.2);break;
+                    case 7: cooldown_maximum = (int)(cooldown_maximum * 0.85); break;// Again hard to realise. -> "Reduce the time between attacks by 15%."
+                }
+            case 5: // Mori
+                switch(level) {
+                    case 2: damage = (int)(damage * 1.2);break;
+                    case 3: size = size * 1.15;break;
+                    case 4: damage = (int)(damage * 1.3);break;
+                    case 5: cooldown_maximum = (int)(cooldown_maximum * 0.9);break;
+                    case 6: size = size * 1.1;break;
+                    case 7: damage = (int)(damage * 1.4);break;
+                }
+            case 6: // Cecilia
+                switch(level) {
+                    case 2: damage = (int)(damage * 1.2);break;
+                    case 3: amount++;break;
+                    case 4: cooldown_maximum = (int)(cooldown_maximum * 0.80);break;
+                    case 5: damage = (int)(damage * 1.4);break;
+                    case 6: size *= 1.2;break;
+                    case 7: amount++;break;
+                }
+            case 7: // Filian
+                switch(level) {
+                    case 2: cooldown_maximum = (int)(cooldown_maximum * 0.80);break;
+                    case 3: damage = (int)(damage * 1.2);break;
+                    case 4: size *= 1.2;break;
+                    case 5: damage = (int)(damage * 1.4);break;
+                    case 6: cooldown_maximum = (int)(cooldown_maximum * 0.80);break;
+                    case 7: amount++;break;
+                }
+            case 8: // Caine
+                switch(level) {
+                    case 2: size *= 1.2;break;
+                    case 3: damage = (int)(damage * 1.3);break;
+                    case 4: amount++;break;
+                    case 5: size *= 1.25;break;
+                    case 6: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 7: amount+=2;break;
+                }
+            case 9: // Vedal
+                switch(level) {
+                    case 2: cooldown_maximum = (int)(cooldown_maximum * 0.8);break;
+                    case 3: amount++;break;
+                    case 4: damage = (int)(damage * 1.2);break;
+                    case 5: cooldown_maximum = (int)(cooldown_maximum * 0.7);break;
+                    case 6: size = size * 1.2;break;
+                    case 7: amount++; burst_cd = 7;break;
+                }
+            case 10: 
+                switch(level) {
+                    case 2: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 3: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 4: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 5: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 6: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 7: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                }
+            case 11: 
+                switch(level) {
+                    case 2: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 3: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 4: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 5: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 6: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 7: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                }
+            case 12: 
+                switch(level) {
+                    case 2: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 3: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 4: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 5: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 6: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 7: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                }
+            case 13: 
+                switch(level) {
+                    case 2: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 3: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 4: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 5: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 6: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 7: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                }
+            case 14: 
+                switch(level) {
+                    case 2: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 3: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 4: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 5: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 6: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 7: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                }
+            case 15: 
+                switch(level) {
+                    case 2: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 3: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 4: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 5: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 6: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                    case 7: cooldown_maximum = (int)(cooldown_maximum * 0.5);break;
+                }
         }
     }
 }

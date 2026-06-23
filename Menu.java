@@ -172,8 +172,8 @@ public class Menu extends World
             switch(selectedAuthor) {
                 case 1: mannequin.Switch("cecilia"); std.charName = "cecilia"; std.rescale = 3; break;
                 case 2: mannequin.Switch("filian"); std.charName = "filian"; std.rescale = 2; break;
-                case 3: mannequin.Switch("caine"); std.charName = "caine"; std.rescale = 4; break;
-                case 4: mannequin.Switch("neuro"); std.charName = "neuro"; std.rescale = 2; break;
+                case 3: mannequin.Switch("neuro"); std.charName = "neuro"; std.rescale = 2; break;
+                case 4: mannequin.Switch("caine"); std.charName = "caine"; std.rescale = 4; break;
             }
             
             setBackground(authorsBackgrounds[selectedAuthor-1]);
@@ -230,8 +230,8 @@ public class Menu extends World
             if (selectedCharacter <= 5) music.playLoop();       else music.pause();
             if (selectedCharacter == 6) cecilia.playLoop();     else cecilia.pause();
             if (selectedCharacter == 7) filiana.playLoop();     else filiana.pause();
-            if (selectedCharacter == 8) neuro.playLoop();       else neuro.pause();
-            if (selectedCharacter == 9) caine.playLoop();        else caine.pause();
+            if (selectedCharacter == 9) neuro.playLoop();       else neuro.pause();
+            if (selectedCharacter == 8) caine.playLoop();        else caine.pause();
             
             //exit and confirmation
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter"))) {

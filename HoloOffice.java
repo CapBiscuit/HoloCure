@@ -25,7 +25,6 @@ public class HoloOffice extends Game
         player.worldY = WORLD_HEIGHT/2;
         
         addObject(player, getWidth()/2, getHeight()/2);
-        addObject(player.attacks.get(0), 145, 115);
         spawnProps();
     }
     

@@ -25,7 +25,6 @@ public class HalloweenCastle extends Game
         player.worldY = 1400;
         
         addObject(player, getWidth()/2, getHeight()/2);
-        addObject(player.attacks.get(0), 145, 115);
         spawnProps();
     }
     

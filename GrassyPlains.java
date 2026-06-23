@@ -25,7 +25,6 @@ public class GrassyPlains extends Game
         player.worldY = 0;
         
         addObject(player, getWidth()/2, getHeight()/2);
-        addObject(player.attacks.get(0), 145, 115);
         spawnProps();
     }
     

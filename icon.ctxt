@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=icon
+comment1.params=img\ x\ y
+comment1.target=icon(greenfoot.GreenfootImage,\ int,\ int)
+numComments=2

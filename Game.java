@@ -33,11 +33,11 @@ public class Game extends World
         addObject(new HPBAR(),343, 46);
         addObject(new Pointer(),getWidth()/2,getHeight()/2);
         addObject(new Crosshair(),0,0);
-        addObject(new AttackItemBar(), 320, 115);
-        setPaintOrder(Pause.class, LevelUp.class,  //TOP PRIORITY
+        addObject(new AttackItemBar(), 250, 125);
+        setPaintOrder(Pause.class, BitmapText.class, icon.class,  //TOP PRIORITY
                       TimeCountdown.class,DefeatedCounter.class,UI.class,EXPBAR.class,HPBAR.class,
-                      Attack_Item.class, AttackItemBar.class, Pointer.class, Crosshair.class, 
-                      Enemy.class); //BOTTOM PRIORITY
+                      Attack_Item.class, AttackItemBar.class, LevelUp.class, Pointer.class, Crosshair.class, 
+                      Prop.class, Enemy.class); //BOTTOM PRIORITY
         
     }
 
@@ -127,14 +127,13 @@ public class Game extends World
             selectedLevelup -= selectedLevelup == 5 ? 4 : 0;
             
             if (!keyCooldown && (Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("enter"))) {
-                removeObject(getObjects(LevelUp.class).get(0)); 
-                if (getObjects(LevelUp.class).size() == 0) {
-                    LEVELUP = false;
-                }
-                else {
-                    LevelUp();
-                }
+                getObjects(LevelUp.class).get(0).remove();
+                if (getObjects(LevelUp.class).size() == 0)  LEVELUP = false;
+                else LevelUp();
+                
                 keyCooldown = true; 
+                
+                 
                 Greenfoot.playSound("menu/confirm.mp3");
             }
         }

@@ -46,7 +46,8 @@ public class Player extends Actor
     int attackCooldown = 0;
     public Player(String charName, int character)
     {
-        this.charName = charName;
+        this.charName  = charName;
+        this.character = character;
         standSets = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/" + charName + "/" + charName + ".png"), 6,2,0,3,2);
         moveSets  = SpriteSheetHandler.splitSheetHorizontal(new GreenfootImage("characters/" + charName + "/" + charName + ".png"), 6,2,1,6,2);
         setImage(standSets[0]);
@@ -208,6 +209,22 @@ public class Player extends Actor
         }
     }
     
+    public boolean hasWeapon(int weaponID) {
+        for (Attack_Item Atk_I : attacks) if (Atk_I.index == weaponID) return true; return false;
+    }
+    
+    public void gainWeapon(int weaponID) {
+        if (attacks.size() < 6 && !hasWeapon(weaponID)) attacks.add(new Attack_Item(weaponID));
+        else if (hasWeapon(weaponID) && getWeaponLevel(weaponID)!=7) attacks.get(getWeaponPlace(weaponID)).upgrade();
+    }
+    
+    public int getWeaponPlace(int weaponID) {
+        for (int i = 0; i < attacks.size(); i++) if (attacks.get(i).index == weaponID) return i; return -1;
+    }
+    
+    public int getWeaponLevel(int weaponID) {
+        for (Attack_Item Atk_I : attacks) if (Atk_I.index == weaponID) return Atk_I.level; return -1;
+    }
     public void updateStats(String charName) {
         switch(charName) {
             case "amelia":

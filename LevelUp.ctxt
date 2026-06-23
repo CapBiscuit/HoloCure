@@ -1,7 +1,15 @@
 #BlueJ class context
 comment0.target=LevelUp
 comment1.params=
-comment1.target=void\ act()
-comment2.params=sLU
-comment2.target=void\ update(int)
-numComments=3
+comment1.target=java.util.ArrayList\ getUniqueRandomNumbers()
+comment2.params=
+comment2.target=void\ act()
+comment3.params=sLU
+comment3.target=void\ update(int)
+comment4.params=
+comment4.target=void\ remove()
+comment5.params=weaponID
+comment5.target=java.lang.String\ getName(int)
+comment6.params=ID
+comment6.target=java.lang.String\ getText(int)
+numComments=7
