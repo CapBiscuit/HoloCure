@@ -8,7 +8,7 @@ public class UI extends Actor
 {
     public UI(GreenfootImage partImg)
     {
-        partImg.scale(partImg.getWidth() * 2, partImg.getHeight()*2);
+        partImg.scale(98, 78);
         setImage(partImg);
     }
 }
